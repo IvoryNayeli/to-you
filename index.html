@@ -5,6 +5,7 @@
   <title>To you</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Reset et corps */
     body {
       margin: 0;
       min-height: 100vh;
@@ -14,26 +15,7 @@
       padding-top: 10vh;
       font-family: 'Montserrat', sans-serif;
       color: #7A6069;
-      background-color: #FFFFFF;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Blobs ondulés en fond */
-    body::before {
-      content: '';
-      position: absolute;
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      background: radial-gradient(circle at 20% 30%, #FFC0D4 30%, transparent 31%),
-                  radial-gradient(circle at 80% 70%, #D8E2DC 25%, transparent 26%),
-                  radial-gradient(circle at 50% 50%, #F4ACB7 40%, transparent 41%);
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 0.15;
-      z-index: 0;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF1F3 100%);
     }
 
     .message {
@@ -42,37 +24,40 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.15);
       width: 90%;
       max-width: 750px;
-      min-width: 400px;
-      padding: 60px 80px;
+      min-width: 300px;
+      padding: 60px 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      z-index: 1; /* Pour rester au-dessus des blobs */
+      text-align: center;
     }
 
+    /* Titre */
     .header {
-      text-align: center;
-      font-size: 24px;
-      font-weight: 700; /* Titre en gras */
+      font-size: clamp(24px, 5vw, 32px); /* adaptatif mobile/desktop */
+      font-weight: 700;
+      color: #5C454F; /* un peu plus foncé */
       margin-bottom: 30px;
       opacity: 0;
       transition: opacity 1s ease;
     }
 
+    /* Texte du milieu */
     .middle {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      gap: 15px;
+      gap: 20px;
       opacity: 0;
       transition: opacity 1s ease;
     }
 
     .middle p {
-      font-size: 18px;
+      font-size: clamp(18px, 4vw, 20px); /* adaptatif */
       margin: 0;
+      line-height: 1.5;
     }
 
     .highlight {
@@ -80,10 +65,11 @@
       color: #F4ACB7;
     }
 
+    /* Bouton */
     .footer {
       display: flex;
       justify-content: flex-end;
-      margin-top: 20px;
+      margin-top: 30px;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -93,8 +79,8 @@
       color: #FFFFFF;
       border: none;
       border-radius: 12px;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 12px 24px;
+      font-size: clamp(16px, 4vw, 18px);
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
@@ -118,11 +104,12 @@
     </div>
 
     <div class="footer" id="footer">
-      <button class="button" onclick="location.href='next.html'">C'est parti !</button>
+      <button class="button" onclick="location.href='password.html'">C'est parti !</button>
     </div>
   </div>
 
   <script>
+    // Fade-in progressif
     window.addEventListener('load', () => {
       const header = document.getElementById('header');
       const middle = document.getElementById('middle');
