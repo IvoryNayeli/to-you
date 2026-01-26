@@ -3,8 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>To you</title>
+  <style>
+    body {
+      background-color: #fff0f5; /* couleur douce, rose clair */
+      color: #333;
+      font-family: "Arial", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    .message {
+      background-color: #ffe4e1; /* un peu plus foncé pour le texte */
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #c71585;
+    }
+  </style>
 </head>
 <body>
-  <p>Pour toi 🤍</p>
+  <div class="message">
+    <p>Aujourd'hui, j'ai un petit message pour toi.</p>
+    <p>Et en bonne informaticienne qui se respecte, j'utilise les outils à ma disposition pour te le transmettre.</p>
+    <p>Pas d'inquiétude, aucune <span class="highlight">compilation</span> ne sera nécessaire, il faudra simplement trouver le <span class="highlight">mot de passe</span>.</p>
+  </div>
 </body>
 </html>
