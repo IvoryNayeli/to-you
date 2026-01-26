@@ -5,21 +5,18 @@
   <title>To you</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Corps du site */
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Alignement en haut */
-      padding-top: 10vh;       /* Décalage vers le haut */
+      align-items: flex-start;
+      padding-top: 10vh;
       background: linear-gradient(to bottom, #D8E2DC, #F4ACB7);
       font-family: 'Montserrat', sans-serif;
-      color: #7A6069; /* Texte légèrement plus foncé */
-      text-align: center;
+      color: #7A6069;
     }
 
-    /* Bloc du message */
     .message {
       background-color: #FFFFFF;
       padding: 60px;
@@ -31,53 +28,88 @@
       transform: translateY(0);
       transition: transform 0.3s ease, opacity 1s ease;
       opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* espace entre texte et bouton */
     }
 
-    /* Fade-in du bloc */
-    .fade-in {
-      opacity: 1;
-    }
-
-    /* Hover subtil */
     .message:hover {
-      transform: translateY(-5px); /* effet lift plus marqué */
+      transform: translateY(-5px);
     }
 
-    /* Accent sur mots-clés */
+    /* Paragraphes */
+    .message p:first-of-type {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 50px; /* plus grand espace après la première phrase */
+    }
+
+    .message p:nth-of-type(2) {
+      font-size: 18px;
+      text-align: left;
+      margin-bottom: 20px; /* moins d’espace avant la 3ᵉ phrase */
+    }
+
+    .message p:nth-of-type(3) {
+      font-size: 18px;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
     .highlight {
       font-weight: bold;
       color: #F4ACB7;
     }
 
-    /* Taille des paragraphes */
-    .message p:first-of-type {
-      font-size: 24px;
+    /* Bouton en bas à droite */
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
     }
 
-    .message p:not(:first-of-type) {
-      font-size: 18px;
+    .button {
+      background-color: #FFC0D4;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
+    .button:hover {
+      background-color: #F4ACB7;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
   <div class="message" id="message">
-    <p>Aujourd'hui, j'ai un petit message pour toi.</p>
-    <p>En bonne informaticienne qui se respecte, j'utilise les outils à ma disposition pour te le transmettre.</p>
-    <p>Pas d'inquiétude, aucune compilation requise, il faut simplement trouver le <span class="highlight">mot de passe</span>.</p>
+    <div>
+      <p>Aujourd'hui, j'ai un petit message pour toi.</p>
+      <p>En bonne informaticienne qui se respecte, j'utilise les outils à ma disposition pour te le transmettre.</p>
+      <p>Pas d'inquiétude, aucune compilation requise, il faut simplement trouver le <span class="highlight">mot de passe</span>.</p>
+    </div>
+
+    <div class="button-container">
+      <button class="button" onclick="location.href='next.html'">c'est parti</button>
+    </div>
   </div>
 
   <script>
-    // Fade-in du message après le chargement
+    // Fade-in progressif du texte
     window.addEventListener('load', () => {
       const msg = document.getElementById('message');
-      // Fade-in progressif ligne par ligne
       const paragraphs = msg.querySelectorAll('p');
       paragraphs.forEach((p, i) => {
+        p.style.opacity = 0;
         setTimeout(() => {
           p.style.opacity = '1';
           p.style.transition = 'opacity 1s ease';
-        }, i * 500); // 0.5s entre chaque paragraphe
+        }, i * 500);
       });
       msg.classList.add('fade-in');
     });
