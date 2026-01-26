@@ -11,34 +11,36 @@
       height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Alignement en haut */
+      padding-top: 10vh;       /* Décalage vers le haut */
       background: linear-gradient(to bottom, #D8E2DC, #F4ACB7);
       font-family: 'Montserrat', sans-serif;
-      color: #9D8189;
+      color: #7A6069; /* Texte légèrement plus foncé */
       text-align: center;
     }
 
     /* Bloc du message */
     .message {
       background-color: #FFFFFF;
-      padding: 40px;
+      padding: 60px;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      max-width: 550px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      max-width: 700px;
+      min-height: 60vh;
       line-height: 1.6;
       transform: translateY(0);
       transition: transform 0.3s ease, opacity 1s ease;
       opacity: 0;
     }
 
-    /* Apparition en fade-in */
+    /* Fade-in du bloc */
     .fade-in {
       opacity: 1;
     }
 
     /* Hover subtil */
     .message:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px); /* effet lift plus marqué */
     }
 
     /* Accent sur mots-clés */
@@ -55,6 +57,7 @@
     .message p:not(:first-of-type) {
       font-size: 18px;
     }
+
   </style>
 </head>
 <body>
@@ -68,6 +71,14 @@
     // Fade-in du message après le chargement
     window.addEventListener('load', () => {
       const msg = document.getElementById('message');
+      // Fade-in progressif ligne par ligne
+      const paragraphs = msg.querySelectorAll('p');
+      paragraphs.forEach((p, i) => {
+        setTimeout(() => {
+          p.style.opacity = '1';
+          p.style.transition = 'opacity 1s ease';
+        }, i * 500); // 0.5s entre chaque paragraphe
+      });
       msg.classList.add('fade-in');
     });
   </script>
