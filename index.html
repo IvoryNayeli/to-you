@@ -12,83 +12,84 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      /* Fond animé avec palette exploitée */
-      background: linear-gradient(135deg, #FF5D73, #7C7A7A, #494949, #FFFFFF, #000000);
+      background: linear-gradient(135deg, #FAF5F0, #FFF8F2, #FAF5F0);
       background-size: 400% 400%;
-      animation: gradientAnimation 25s ease infinite;
-      color: #494949;
+      animation: gradientMove 20s ease infinite;
+      color: #333333;
     }
 
-    @keyframes gradientAnimation {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Bloc légèrement translucide avec animation flottante */
+    /* Bloc légèrement plus étroit et “vivant” */
     .message {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-      width: 90%;
-      max-width: 800px;
-      min-width: 300px;
-      padding: 100px 70px;
+      background-color: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      width: 70%; /* moins large */
+      max-width: 600px;
+      min-width: 280px;
+      padding: 100px 60px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       position: relative;
-      animation: float 6s ease-in-out infinite;
+      animation: subtleFloat 6s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(-0.2deg); }
+      50% { transform: translateY(-6px) rotate(0.2deg); }
+      75% { transform: translateY(-3px) rotate(-0.1deg); }
     }
 
     /* Titre centré et adaptatif */
     .header {
-      font-size: clamp(28px, 6vw, 50px); /* s’adapte à la largeur du bloc */
+      font-size: clamp(28px, 6vw, 48px);
       font-weight: 700;
-      color: #FF5D73;
+      color: #FF6F61;
       text-align: center;
-      margin-bottom: 100px; /* espace important avant le texte */
+      margin-bottom: 120px; /* plus d’espace avant le texte */
       line-height: 1.2;
       word-wrap: break-word;
       opacity: 0;
       transition: opacity 1s ease;
     }
 
-    /* Texte du milieu aligné à gauche */
+    /* Texte aligné à gauche */
     .middle {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      gap: 50px; /* espace augmenté entre phrases */
-      margin-bottom: 100px; /* espace avant le bouton */
+      gap: 50px; /* espace entre phrases */
+      margin-bottom: 120px; /* espace avant le bouton */
       opacity: 0;
       transition: opacity 1s ease;
     }
 
     .middle p {
-      font-size: clamp(22px, 5vw, 28px);
+      font-size: clamp(20px, 4.5vw, 26px);
       margin: 0;
       line-height: 1.6;
-      color: #494949;
+      color: #333333;
     }
 
     .highlight-style {
       font-weight: bold;
-      color: #FF5D73;
+      color: #FF6F61;
     }
 
     .highlight-pass {
       font-weight: bold;
-      color: #000000;
+      color: #FF6F61;
     }
 
-    /* Bouton plus grand */
+    /* Bouton */
     .footer {
       display: flex;
       justify-content: flex-end;
@@ -97,19 +98,19 @@
     }
 
     .button {
-      background-color: #FF5D73;
+      background-color: #FF6F61;
       color: #FFFFFF;
       border: none;
       border-radius: 14px;
-      padding: 24px 48px; /* plus grand */
-      font-size: clamp(20px, 5vw, 26px); /* police plus grande */
+      padding: 24px 48px;
+      font-size: clamp(20px, 5vw, 26px);
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .button:hover {
-      background-color: #000000;
+      background-color: #FF897B;
       transform: translateY(-2px);
     }
   </style>
