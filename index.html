@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -15,10 +15,25 @@
       font-family: 'Montserrat', sans-serif;
       color: #7A6069;
       background-color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
 
-      /* Motif léger : petits points blancs en relief */
-      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-size: 30px 30px;
+    /* Blobs ondulés en fond */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      top: -10%;
+      left: -10%;
+      background: radial-gradient(circle at 20% 30%, #FFC0D4 30%, transparent 31%),
+                  radial-gradient(circle at 80% 70%, #D8E2DC 25%, transparent 26%),
+                  radial-gradient(circle at 50% 50%, #F4ACB7 40%, transparent 41%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.15;
+      z-index: 0;
     }
 
     .message {
@@ -32,11 +47,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      z-index: 1; /* Pour rester au-dessus des blobs */
     }
 
     .header {
       text-align: center;
       font-size: 24px;
+      font-weight: 700; /* Titre en gras */
       margin-bottom: 30px;
       opacity: 0;
       transition: opacity 1s ease;
@@ -96,7 +114,7 @@
 
     <div class="middle" id="middle">
       <p>Et parce que j'aime faire les choses avec style, je mets mes compétences d'informaticienne à contribution pour te le transmettre.</p>
-      <p>Pas d’inquiétude, tu n’auras pas besoin de compiler quoi que ce soit, il suffit simplement de deviner le <span class="highlight">mot de passe</span> pour accéder au message.</p>
+      <p>Pas d’inquiétude, tu n’auras pas besoin de compiler quoi que ce soit, il te suffit simplement de deviner le <span class="highlight">mot de passe</span> pour accéder au message.</p>
     </div>
 
     <div class="footer" id="footer">
