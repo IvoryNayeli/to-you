@@ -12,11 +12,10 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      /* Fond animé dominé rouge/rose */
       background: linear-gradient(135deg, #F45B69, #F13030, #F6E8EA, #F45B69, #F13030);
       background-size: 400% 400%;
       animation: gradientAnimation 25s ease infinite;
-      color: #22181C; /* texte sombre pour lisibilité */
+      color: #22181C;
     }
 
     @keyframes gradientAnimation {
@@ -25,7 +24,7 @@
       100%{background-position:0% 50%}
     }
 
-    /* Bloc légèrement translucide */
+    /* Bloc légèrement translucide avec effet “floating” */
     .message {
       background-color: rgba(246, 232, 234, 0.85);
       border-radius: 20px;
@@ -33,21 +32,28 @@
       width: 90%;
       max-width: 800px;
       min-width: 300px;
-      padding: 80px 60px;
+      padding: 100px 70px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       position: relative;
+      animation: float 6s ease-in-out infinite;
     }
 
-    /* Titre centré */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Titre centré, toujours sur une ligne */
     .header {
       font-size: clamp(36px, 8vw, 50px);
       font-weight: 700;
-      color: #F13030; /* titre rouge vif */
+      color: #F13030;
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 80px; /* plus d’espace avant le texte */
       line-height: 1.2;
+      white-space: nowrap;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -58,7 +64,8 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      gap: 30px;
+      gap: 40px; /* plus d’espace entre phrases */
+      margin-bottom: 80px; /* plus d’espace avant le bouton */
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -67,24 +74,23 @@
       font-size: clamp(22px, 5vw, 28px);
       margin: 0;
       line-height: 1.6;
-      color: #22181C; /* texte sombre pour lisibilité */
+      color: #22181C;
     }
 
     .highlight-style {
       font-weight: bold;
-      color: #F45B69; /* highlight “avec style” */
+      color: #F45B69;
     }
 
     .highlight-pass {
       font-weight: bold;
-      color: #F13030; /* highlight “mot de passe” */
+      color: #F13030;
     }
 
-    /* Bouton */
+    /* Bouton plus grand */
     .footer {
       display: flex;
       justify-content: flex-end;
-      margin-top: 60px;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -94,8 +100,8 @@
       color: #F6E8EA;
       border: none;
       border-radius: 14px;
-      padding: 16px 32px;
-      font-size: clamp(18px, 4vw, 22px);
+      padding: 20px 40px; /* plus grand */
+      font-size: clamp(20px, 5vw, 24px); /* police plus grande */
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
