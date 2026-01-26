@@ -12,21 +12,24 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 10vh;
-      background: linear-gradient(to bottom, #D8E2DC, #F4ACB7);
       font-family: 'Montserrat', sans-serif;
       color: #7A6069;
+      /* Dégradé + motif léger de points */
+      background: linear-gradient(to bottom, #D8E2DC, #F4ACB7);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
     .message {
       background-color: #FFFFFF;
-      padding: 40px 60px;  /* plus large, mais hauteur s’adapte au contenu */
+      padding: 60px 80px; /* plus grand padding pour hauteur et largeur */
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-      max-width: 700px;
-      width: 80%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* ombre plus large */
+      max-width: 750px;
+      width: 90%; /* largeur plus importante */
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* header top, middle centré, footer bas */
+      justify-content: space-between;
     }
 
     .header {
@@ -40,7 +43,7 @@
     .middle {
       display: flex;
       flex-direction: column;
-      justify-content: center; /* centre verticalement au milieu du bloc */
+      justify-content: center;
       align-items: flex-start;
       gap: 15px;
       opacity: 0;
