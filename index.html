@@ -12,10 +12,11 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #F45B69, #F13030, #F6E8EA, #F45B69, #F13030);
+      /* Fond animé avec palette exploitée */
+      background: linear-gradient(135deg, #FF5D73, #7C7A7A, #494949, #FFFFFF, #000000);
       background-size: 400% 400%;
       animation: gradientAnimation 25s ease infinite;
-      color: #22181C;
+      color: #494949;
     }
 
     @keyframes gradientAnimation {
@@ -24,11 +25,11 @@
       100%{background-position:0% 50%}
     }
 
-    /* Bloc légèrement translucide avec effet “floating” */
+    /* Bloc légèrement translucide avec animation flottante */
     .message {
-      background-color: rgba(246, 232, 234, 0.85);
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
       width: 90%;
       max-width: 800px;
       min-width: 300px;
@@ -42,18 +43,18 @@
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-6px); }
     }
 
-    /* Titre centré, toujours sur une ligne */
+    /* Titre centré et adaptatif */
     .header {
-      font-size: clamp(36px, 8vw, 50px);
+      font-size: clamp(28px, 6vw, 50px); /* s’adapte à la largeur du bloc */
       font-weight: 700;
-      color: #F13030;
+      color: #FF5D73;
       text-align: center;
-      margin-bottom: 80px; /* plus d’espace avant le texte */
+      margin-bottom: 100px; /* espace important avant le texte */
       line-height: 1.2;
-      white-space: nowrap;
+      word-wrap: break-word;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -64,8 +65,8 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      gap: 40px; /* plus d’espace entre phrases */
-      margin-bottom: 80px; /* plus d’espace avant le bouton */
+      gap: 50px; /* espace augmenté entre phrases */
+      margin-bottom: 100px; /* espace avant le bouton */
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -74,17 +75,17 @@
       font-size: clamp(22px, 5vw, 28px);
       margin: 0;
       line-height: 1.6;
-      color: #22181C;
+      color: #494949;
     }
 
     .highlight-style {
       font-weight: bold;
-      color: #F45B69;
+      color: #FF5D73;
     }
 
     .highlight-pass {
       font-weight: bold;
-      color: #F13030;
+      color: #000000;
     }
 
     /* Bouton plus grand */
@@ -96,19 +97,19 @@
     }
 
     .button {
-      background-color: #F13030;
-      color: #F6E8EA;
+      background-color: #FF5D73;
+      color: #FFFFFF;
       border: none;
       border-radius: 14px;
-      padding: 20px 40px; /* plus grand */
-      font-size: clamp(20px, 5vw, 24px); /* police plus grande */
+      padding: 24px 48px; /* plus grand */
+      font-size: clamp(20px, 5vw, 26px); /* police plus grande */
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .button:hover {
-      background-color: #F45B69;
+      background-color: #000000;
       transform: translateY(-2px);
     }
   </style>
@@ -137,8 +138,8 @@
       const footer = document.getElementById('footer');
 
       setTimeout(() => { header.style.opacity = '1'; }, 200);
-      setTimeout(() => { middle.style.opacity = '1'; }, 700);
-      setTimeout(() => { footer.style.opacity = '1'; }, 1200);
+      setTimeout(() => { middle.style.opacity = '1'; }, 800);
+      setTimeout(() => { footer.style.opacity = '1'; }, 1500);
     });
   </script>
 </body>
