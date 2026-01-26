@@ -26,34 +26,35 @@
       min-height: 60vh;
       line-height: 1.6;
       transform: translateY(0);
-      transition: transform 0.3s ease, opacity 1s ease;
-      opacity: 0;
+      transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* espace entre texte et bouton */
-    }
-
-    .message:hover {
-      transform: translateY(-5px);
+      justify-content: space-between;
     }
 
     /* Paragraphes */
     .message p:first-of-type {
       font-size: 24px;
       text-align: center;
-      margin-bottom: 50px; /* plus grand espace après la première phrase */
+      margin-bottom: 50px;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .message p:nth-of-type(2) {
       font-size: 18px;
       text-align: left;
-      margin-bottom: 20px; /* moins d’espace avant la 3ᵉ phrase */
+      margin-bottom: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .message p:nth-of-type(3) {
       font-size: 18px;
       text-align: left;
       margin-bottom: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .highlight {
@@ -66,6 +67,8 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .button {
@@ -84,34 +87,42 @@
       background-color: #F4ACB7;
       transform: translateY(-2px);
     }
+
   </style>
 </head>
 <body>
   <div class="message" id="message">
     <div>
-      <p>Aujourd'hui, j'ai un petit message pour toi.</p>
-      <p>En bonne informaticienne qui se respecte, j'utilise les outils à ma disposition pour te le transmettre.</p>
-      <p>Pas d'inquiétude, aucune compilation requise, il faut simplement trouver le <span class="highlight">mot de passe</span>.</p>
+      <p id="p1">Aujourd'hui, j'ai un message pour toi.</p>
+      <p id="p2">En bonne informaticienne qui se respecte, j'utilise les outils à ma disposition pour te le transmettre.</p>
+      <p id="p3">Pas d'inquiétude, aucune compilation requise, il faut simplement trouver le <span class="highlight">mot de passe</span>.</p>
     </div>
 
-    <div class="button-container">
-      <button class="button" onclick="location.href='next.html'">c'est parti</button>
+    <div class="button-container" id="button-container">
+      <button class="button" onclick="location.href='next.html'">C'est parti !</button>
     </div>
   </div>
 
   <script>
-    // Fade-in progressif du texte
+    // Fade-in progressif du texte et du bouton
     window.addEventListener('load', () => {
-      const msg = document.getElementById('message');
-      const paragraphs = msg.querySelectorAll('p');
+      const paragraphs = [
+        document.getElementById('p1'),
+        document.getElementById('p2'),
+        document.getElementById('p3')
+      ];
+      const button = document.getElementById('button-container');
+
       paragraphs.forEach((p, i) => {
-        p.style.opacity = 0;
         setTimeout(() => {
           p.style.opacity = '1';
-          p.style.transition = 'opacity 1s ease';
         }, i * 500);
       });
-      msg.classList.add('fade-in');
+
+      // Affiche le bouton après les phrases
+      setTimeout(() => {
+        button.style.opacity = '1';
+      }, paragraphs.length * 500);
     });
   </script>
 </body>
