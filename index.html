@@ -12,10 +12,11 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #631D76, #9E4770, #FBFBFB, #2E2532, #201A23);
+      /* Dégradé animé avec la nouvelle palette */
+      background: linear-gradient(135deg, #F5E3E0, #E8B4BC, #D282A6, #6E4555, #3A3238);
       background-size: 400% 400%;
-      animation: gradientAnimation 20s ease infinite;
-      color: #2E2532;
+      animation: gradientAnimation 25s ease infinite;
+      color: #3A3238;
     }
 
     @keyframes gradientAnimation {
@@ -24,8 +25,9 @@
       100%{background-position:0% 50%}
     }
 
+    /* Bloc légèrement translucide pour lisibilité */
     .message {
-      background-color: rgba(251,251,251,0.9);
+      background-color: rgba(245, 227, 224, 0.9);
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.2);
       width: 90%;
@@ -42,7 +44,7 @@
     .header {
       font-size: clamp(36px, 8vw, 50px);
       font-weight: 700;
-      color: #631D76;
+      color: #6E4555;
       text-align: center;
       margin-bottom: 60px;
       line-height: 1.2;
@@ -65,16 +67,17 @@
       font-size: clamp(22px, 5vw, 28px);
       margin: 0;
       line-height: 1.6;
+      color: #3A3238;
     }
 
     .highlight-style {
       font-weight: bold;
-      color: #EF7A85;
+      color: #D282A6;
     }
 
     .highlight-pass {
       font-weight: bold;
-      color: #9E4770;
+      color: #E8B4BC;
     }
 
     /* Bouton */
@@ -87,8 +90,8 @@
     }
 
     .button {
-      background-color: #631D76;
-      color: #FBFBFB;
+      background-color: #6E4555;
+      color: #F5E3E0;
       border: none;
       border-radius: 14px;
       padding: 16px 32px;
@@ -99,7 +102,7 @@
     }
 
     .button:hover {
-      background-color: #9E4770;
+      background-color: #D282A6;
       transform: translateY(-2px);
     }
   </style>
