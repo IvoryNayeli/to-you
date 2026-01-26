@@ -12,11 +12,11 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      /* Dégradé animé avec la nouvelle palette */
-      background: linear-gradient(135deg, #F45B69, #F6E8EA, #22181C, #5A0001, #F13030);
+      /* Fond animé dominé rouge/rose */
+      background: linear-gradient(135deg, #F45B69, #F13030, #F6E8EA, #F45B69, #F13030);
       background-size: 400% 400%;
       animation: gradientAnimation 25s ease infinite;
-      color: #22181C;
+      color: #22181C; /* texte sombre pour lisibilité */
     }
 
     @keyframes gradientAnimation {
@@ -25,9 +25,9 @@
       100%{background-position:0% 50%}
     }
 
-    /* Bloc légèrement translucide pour lisibilité */
+    /* Bloc légèrement translucide */
     .message {
-      background-color: rgba(246, 232, 234, 0.9);
+      background-color: rgba(246, 232, 234, 0.85);
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.2);
       width: 90%;
@@ -44,7 +44,7 @@
     .header {
       font-size: clamp(36px, 8vw, 50px);
       font-weight: 700;
-      color: #5A0001;
+      color: #F13030; /* titre rouge vif */
       text-align: center;
       margin-bottom: 60px;
       line-height: 1.2;
@@ -67,17 +67,17 @@
       font-size: clamp(22px, 5vw, 28px);
       margin: 0;
       line-height: 1.6;
-      color: #22181C;
+      color: #22181C; /* texte sombre pour lisibilité */
     }
 
     .highlight-style {
       font-weight: bold;
-      color: #F13030;
+      color: #F45B69; /* highlight “avec style” */
     }
 
     .highlight-pass {
       font-weight: bold;
-      color: #F45B69;
+      color: #F13030; /* highlight “mot de passe” */
     }
 
     /* Bouton */
@@ -90,7 +90,7 @@
     }
 
     .button {
-      background-color: #5A0001;
+      background-color: #F13030;
       color: #F6E8EA;
       border: none;
       border-radius: 14px;
@@ -102,7 +102,7 @@
     }
 
     .button:hover {
-      background-color: #F13030;
+      background-color: #F45B69;
       transform: translateY(-2px);
     }
   </style>
