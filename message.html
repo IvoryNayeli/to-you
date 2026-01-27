@@ -1,231 +1,252 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Je t'aime ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #FFF4F6, #FFE8EC);
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      font-family: 'Montserrat', sans-serif;
-      background: radial-gradient(circle at top left, #FAF5F0, #FFF1E6, #FFF8F2);
-      color: #494949;
-      overflow-x: hidden;
       padding: 40px 20px;
+      color: #333;
     }
 
-    .message {
-      background-color: #FFFFFF;
-      border-radius: 24px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      width: 85%;
-      max-width: 900px;
-      padding: 60px 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-top: 60px; /* Bloc un peu plus bas */
-    }
-
-    .header {
-      font-size: clamp(32px, 6vw, 50px);
-      font-weight: 700;
-      color: #FF5D73;
-      text-align: center;
+    .container {
       width: 100%;
-      margin-bottom: 40px;
+      max-width: 900px;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 60px 50px 70px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      margin-top: 60px;
+    }
+
+    h1 {
+      margin: 0 0 40px;
+      text-align: center;
+      font-size: clamp(34px, 6vw, 48px);
+      color: #F13030;
     }
 
     .intro {
-      font-size: clamp(20px, 4vw, 26px);
-      margin-bottom: 40px;
+      font-size: clamp(20px, 4vw, 24px);
+      margin-bottom: 50px;
       text-align: left;
-      color: #494949;
-      width: 100%;
     }
 
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 100%;
-      align-items: center; /* Boutons centrés */
-    }
-
-    .item-container {
+    .reasons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
+      gap: 22px;
     }
 
-    .number-button {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid #FF5D73;
-      background-color: #FFF1E6;
-      color: #FF5D73;
-      font-weight: bold;
-      font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-bottom: 12px;
-      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease, opacity 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      animation: pulse 1.5s infinite;
-    }
-
-    .number-button:hover {
-      transform: scale(1.1);
-      background-color: #FFDEE3;
-      box-shadow: 0 8px 15px rgba(255,93,115,0.3);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    /* Animation hint du prochain bouton */
-    @keyframes hintShake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-    }
-
-    .number-button.hint {
-      animation: hintShake 0.8s ease-in-out infinite;
-    }
-
-    .list-item {
-      background-color: #FFF5F6;
-      padding: 20px 25px;
-      border-radius: 16px;
-      font-size: clamp(18px, 3.8vw, 22px);
-      line-height: 1.6;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      cursor: default;
-      color: #494949;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-      text-align: left;
+    .reason-block {
       width: 100%;
       max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .list-item.visible {
+    /* Boutons */
+    .reason-button {
+      width: 100%;
+      padding: 18px 24px;
+      border-radius: 16px;
+      border: none;
+      background: #FFE1E6;
+      color: #F13030;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
+    }
+
+    .reason-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    /* Animation du prochain bouton */
+    @keyframes hintMove {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .reason-button.hint {
+      animation: hintMove 1.6s ease-in-out infinite;
+    }
+
+    /* Texte révélé */
+    .reason-text {
+      margin-top: 18px;
+      padding: 22px 26px;
+      background: #FFF6F8;
+      border-radius: 18px;
+      font-size: clamp(18px, 3.6vw, 22px);
+      line-height: 1.6;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: none;
+    }
+
+    .reason-text.visible {
+      display: block;
       opacity: 1;
       transform: translateY(0);
     }
 
     .highlight {
-      color: #FF5D73;
+      color: #F13030;
       font-weight: 600;
     }
   </style>
 </head>
+
 <body>
-  <div class="message">
-    <div class="header">Je t'aime ❤️</div>
-    <div class="intro">Et s'il me fallait des raisons pour t'aimer, en voici 10 :</div>
+  <div class="container">
+    <h1>Je t'aime ❤️</h1>
 
-    <div class="list" id="list">
-      <!-- Points -->
-      <div class="item-container">
-        <div class="number-button" data-index="0">1</div>
-        <div class="list-item"><span class="highlight">J'aime ton intelligence.</span> J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.</div>
+    <div class="intro">
+      Et s'il me fallait des raisons pour t'aimer, en voici 10 :
+    </div>
+
+    <div class="reasons" id="reasons">
+
+      <!-- 1 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°1</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton intelligence.</span>
+          J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel,
+          dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser,
+          dans ton ouverture d'esprit et ta faculté à t'observer toi-même.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="1">2</div>
-        <div class="list-item"><span class="highlight">J'aime ton corps "affûté".</span> J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage. J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.</div>
+      <!-- 2 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°2</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton corps affûté.</span>
+          J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage.
+          J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="2">3</div>
-        <div class="list-item"><span class="highlight">J'aime ta curiosité.</span> J'aime cette soif de connaissance qui t'habite, qui te pousse à vouloir apprendre et comprendre le monde dans lequel tu évolues.</div>
+      <!-- 3 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°3</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ta curiosité.</span>
+          J'aime cette soif de connaissance qui t'habite et te pousse à vouloir comprendre le monde
+          dans lequel tu évolues.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="3">4</div>
-        <div class="list-item"><span class="highlight">J'aime ton côté observateur.</span> J'aime la manière dont tu observes et analyses le monde autour de toi, avec une présence discrète mais bien réelle, qui ne m'a jamais laissée indifférente.</div>
+      <!-- 4 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°4</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton côté observateur.</span>
+          J'aime la manière dont tu observes et analyses le monde, avec une présence discrète
+          mais profondément marquante.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="4">5</div>
-        <div class="list-item"><span class="highlight">J'aime tes yeux.</span> J'aime la forme qu'ils ont, j'aime les longs cils qui les bordent, j'aime tout ce qu'on peut y lire quand tu choisis de t'ouvrir.</div>
+      <!-- 5 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°5</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime tes yeux.</span>
+          Leur forme, leurs cils, et tout ce qu'on peut y lire quand tu choisis de t'ouvrir.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="5">6</div>
-        <div class="list-item"><span class="highlight">J'aime ton assertivité.</span> J'aime que tu connaisses tes besoins et tes limites, et j'aime la force tranquille avec laquelle tu sais les exprimer.</div>
+      <!-- 6 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°6</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton assertivité.</span>
+          J'aime que tu connaisses tes besoins et tes limites,
+          et la force tranquille avec laquelle tu sais les exprimer.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="6">7</div>
-        <div class="list-item"><span class="highlight">J'aime ta voix.</span> J'aime sa douceur tranquille, son ton, la façon que tu as de prononcer certains sons.</div>
+      <!-- 7 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°7</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ta voix.</span>
+          Sa douceur, son ton, et la façon très particulière que tu as de prononcer certains sons.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="7">8</div>
-        <div class="list-item"><span class="highlight">J'aime ton sens de l'humour.</span> J'aime cette façon que tu as de trouver les mots justes, pertinents et amusants, qui font briller ton intelligence.</div>
+      <!-- 8 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°8</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton humour.</span>
+          Ta façon de trouver les mots justes, intelligents et drôles, sans jamais forcer.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="8">9</div>
-        <div class="list-item"><span class="highlight">J'aime tes lèvres.</span> J'aime leur forme, leur douceur, la façon qu'elles ont de bouger quand tu parles, ou quand elles se joignent aux miennes.</div>
+      <!-- 9 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°9</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime tes lèvres.</span>
+          Leur forme, leur douceur, et la manière dont elles bougent quand tu parles… ou quand elles me rejoignent.
+        </div>
       </div>
 
-      <div class="item-container">
-        <div class="number-button" data-index="9">10</div>
-        <div class="list-item"><span class="highlight">J'aime la façon dont tu prends soin de toi.</span> J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.</div>
+      <!-- 10 -->
+      <div class="reason-block">
+        <button class="reason-button">Raison n°10</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime la façon dont tu prends soin de toi.</span>
+          Ton attention à ta santé, à ton corps, à ton équilibre, d'une manière qui m'inspire profondément.
+        </div>
       </div>
+
     </div>
   </div>
 
   <script>
-    const buttons = Array.from(document.querySelectorAll('.number-button'));
-    const items = Array.from(document.querySelectorAll('.list-item'));
+    const buttons = document.querySelectorAll('.reason-button');
 
-    let hintIndex = 0;
+    function updateHint() {
+      buttons.forEach(btn => btn.classList.remove('hint'));
+      const next = Array.from(buttons).find(b => b.style.display !== 'none');
+      if (next) next.classList.add('hint');
+    }
 
-    // Tap-to-reveal
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.nextElementSibling;
-        btn.style.opacity = 0;
-        setTimeout(() => btn.style.display = 'none', 300);
-        item.classList.add('visible');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const text = button.nextElementSibling;
+        button.style.opacity = 0;
+        setTimeout(() => {
+          button.style.display = 'none';
+          text.classList.add('visible');
+          updateHint();
+        }, 300);
       });
     });
 
-    // Animation hint sur le prochain bouton
-    function startHintAnimation() {
-      setInterval(() => {
-        // enlever hint sur tous
-        buttons.forEach(b => b.classList.remove('hint'));
-        // trouver premier bouton visible
-        while(hintIndex < buttons.length && buttons[hintIndex].style.display === 'none') {
-          hintIndex++;
-        }
-        if(hintIndex < buttons.length) {
-          buttons[hintIndex].classList.add('hint');
-          hintIndex++;
-        } else {
-          hintIndex = 0; // recommencer
-        }
-      }, 3000);
-    }
-    startHintAnimation();
+    updateHint();
   </script>
 </body>
 </html>
