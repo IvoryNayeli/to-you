@@ -12,33 +12,22 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      background: radial-gradient(circle at top left, #FF5D73, #7C7A7A, #FFFFFF);
-      background-size: 800% 800%;
-      animation: gradientMove 25s ease infinite;
+      /* Fond identique à password.html */
+      background: radial-gradient(circle at top left, #FAF5F0, #FFF1E6, #FFF8F2);
       color: #494949;
       overflow-x: hidden;
       padding: 20px;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 0%; }
-      25% { background-position: 50% 50%; }
-      50% { background-position: 100% 0%; }
-      75% { background-position: 50% 50%; }
-      100% { background-position: 0% 0%; }
     }
 
     .message {
       background-color: #FFFFFF;
       border-radius: 24px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      width: 70%;
-      max-width: 700px;
-      min-width: 280px;
+      width: 85%;
+      max-width: 900px;
       padding: 60px 50px;
       display: flex;
       flex-direction: column;
-      position: relative;
       animation: subtleFloat 6s ease-in-out infinite;
     }
 
@@ -60,8 +49,8 @@
     .intro {
       font-size: clamp(20px, 4vw, 26px);
       margin-bottom: 40px;
-      color: #494949;
       text-align: center;
+      color: #494949;
     }
 
     .list {
@@ -71,21 +60,16 @@
     }
 
     .list-item {
-      background-color: #F5DDE0; /* léger fond pour chaque item */
-      padding: 15px 20px;
+      background-color: #FFF1E6; /* léger fond pour chaque item */
+      padding: 20px 25px;
       border-radius: 16px;
       font-size: clamp(18px, 3.8vw, 22px);
       line-height: 1.6;
       opacity: 0;
       transform: translateY(15px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      cursor: pointer;
+      cursor: default;
       color: #494949;
-    }
-
-    .list-item:hover {
-      transform: translateY(0) scale(1.02);
-      box-shadow: 0 8px 20px rgba(255,93,115,0.3);
     }
 
     .list-item span.number {
@@ -95,10 +79,11 @@
       font-size: 1.2em;
     }
 
-    .highlight {
-      color: #FF5D73;
-      font-weight: bold;
+    .list-item:hover {
+      transform: translateY(0) scale(1.02);
+      box-shadow: 0 8px 20px rgba(255,93,115,0.2);
     }
+
   </style>
 </head>
 <body>
@@ -127,7 +112,7 @@
         setTimeout(() => {
           item.style.opacity = 1;
           item.style.transform = 'translateY(0)';
-        }, idx * 500); // apparition un à un
+        }, idx * 500); // apparition progressive
       });
     });
   </script>
