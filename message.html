@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Je t'aime ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at top left, #FFF1F1, #FFE2E5, #FFD8DD);
+      background-size: 800% 800%;
+      animation: gradientMove 25s ease infinite;
+      color: #333333;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 0%; }
+      75% { background-position: 50% 50%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    .message {
+      background-color: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      width: 70%;
+      max-width: 700px;
+      min-width: 280px;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      25% { transform: translateY(-3px); }
+      50% { transform: translateY(-6px); }
+      75% { transform: translateY(-3px); }
+    }
+
+    .header {
+      font-size: clamp(32px, 6vw, 50px);
+      font-weight: 700;
+      color: #FF5D73;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .intro {
+      font-size: clamp(20px, 4vw, 26px);
+      margin-bottom: 40px;
+      color: #494949;
+      text-align: center;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .list-item {
+      font-size: clamp(18px, 3.8vw, 22px);
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .highlight {
+      color: #FF5D73;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="message">
+    <div class="header">Je t'aime ❤️</div>
+    <div class="intro">S'il me fallait des raisons pour t'aimer, en voici 10 :</div>
+
+    <div class="list" id="list">
+      <div class="list-item">
+        1 - J'aime ton intelligence. J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.
+      </div>
+      <div class="list-item">
+        2 - J'aime ton corps "affûté". J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage. J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.
+      </div>
+      <div class="list-item">
+        3 - J'aime ta curiosité. J'aime cette soif de connaissance qui t'habite, qui te pousse à vouloir apprendre et comprendre le monde dans lequel tu évolues.
+      </div>
+      <div class="list-item">
+        4 - J'aime ton côté observateur. J'aime la manière dont tu observes et analyses le monde autour de toi, avec une présence discrète mais bien réelle, qui ne m'a jamais laissée indifférente.
+      </div>
+      <div class="list-item">
+        5 - J'aime tes yeux. J'aime la forme qu'ils ont, j'aime les longs cils qui les bordent, j'aime tout ce qu'on peut y lire quand tu choisis de t'ouvrir.
+      </div>
+      <div class="list-item">
+        6 - J'aime ton assertivité. J'aime que tu connaisses tes besoins et tes limites, et j'aime la force tranquille avec laquelle tu sais les exprimer.
+      </div>
+      <div class="list-item">
+        7 - J'aime ta voix. J'aime sa douceur tranquille, son ton, la façon que tu as de prononcer certains sons.
+      </div>
+      <div class="list-item">
+        8 - J'aime ton sens de l'humour. J'aime cette façon que tu as de trouver les mots justes, pertinents et amusants, qui font briller ton intelligence.
+      </div>
+      <div class="list-item">
+        9 - J'aime tes lèvres. J'aime leur forme, leur douceur, la façon qu'elles ont de bouger quand tu parles, ou quand elles se joignent aux miennes.
+      </div>
+      <div class="list-item">
+        10 - J'aime la façon dont tu prends soin de toi. J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const items = document.querySelectorAll('.list-item');
+      items.forEach((item, idx) => {
+        setTimeout(() => {
+          item.style.opacity = 1;
+          item.style.transform = 'translateY(0)';
+        }, idx * 500); // apparition une à une toutes les 0.5s
+      });
+    });
+  </script>
+</body>
+</html>
