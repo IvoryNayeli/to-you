@@ -10,12 +10,12 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       font-family: 'Montserrat', sans-serif;
       background: radial-gradient(circle at top left, #FAF5F0, #FFF1E6, #FFF8F2);
       color: #494949;
       overflow-x: hidden;
-      padding: 20px;
+      padding: 40px 20px;
     }
 
     .message {
@@ -27,15 +27,8 @@
       padding: 60px 50px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      animation: subtleFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes subtleFloat {
-      0%, 100% { transform: translateY(0px); }
-      25% { transform: translateY(-3px); }
-      50% { transform: translateY(-6px); }
-      75% { transform: translateY(-3px); }
+      align-items: flex-start;
+      margin-top: 60px; /* Bloc un peu plus bas */
     }
 
     .header {
@@ -43,14 +36,16 @@
       font-weight: 700;
       color: #FF5D73;
       text-align: center;
+      width: 100%;
       margin-bottom: 40px;
     }
 
     .intro {
       font-size: clamp(20px, 4vw, 26px);
       margin-bottom: 40px;
-      text-align: center;
+      text-align: left;
       color: #494949;
+      width: 100%;
     }
 
     .list {
@@ -60,8 +55,45 @@
       width: 100%;
     }
 
-    .list-item {
+    .item-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .number-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #FF5D73;
       background-color: #FFF1E6;
+      color: #FF5D73;
+      font-weight: bold;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: pulse 2s infinite;
+    }
+
+    .number-button:hover {
+      transform: scale(1.1);
+      background-color: #FFDEE3;
+      box-shadow: 0 8px 15px rgba(255,93,115,0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .list-item {
+      background-color: #FFF5F6; /* bloc plus doux que blanc pur */
       padding: 20px 25px;
       border-radius: 16px;
       font-size: clamp(18px, 3.8vw, 22px);
@@ -71,6 +103,8 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
       cursor: default;
       color: #494949;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
     }
 
     .list-item.visible {
@@ -78,34 +112,10 @@
       transform: translateY(0);
     }
 
-    .number-button {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #FF5D73;
-      background-color: #FFFFFF;
-      color: #FF5D73;
-      font-weight: bold;
-      font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: transform 0.2s ease, background-color 0.3s ease;
+    .list-item:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(255,93,115,0.15);
     }
-
-    .number-button:hover {
-      transform: scale(1.1);
-      background-color: #FFDEE3;
-    }
-
-    .item-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
   </style>
 </head>
 <body>
@@ -114,7 +124,6 @@
     <div class="intro">Et s'il me fallait des raisons pour t'aimer, en voici 10 :</div>
 
     <div class="list" id="list">
-      <!-- Chaque item avec bouton -->
       <div class="item-container">
         <div class="number-button" data-index="0">1</div>
         <div class="list-item">J'aime ton intelligence. J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.</div>
@@ -171,12 +180,12 @@
     const buttons = document.querySelectorAll('.number-button');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        const idx = btn.dataset.index;
         const item = btn.nextElementSibling;
         item.classList.add('visible');
         btn.disabled = true;
         btn.style.backgroundColor = "#FFDEE3";
-        btn.style.transform = "scale(1.0)";
+        btn.style.boxShadow = "0 12px 25px rgba(255,93,115,0.3)";
+        btn.style.transform = "scale(1)";
       });
     });
   </script>
