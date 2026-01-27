@@ -1,236 +1,150 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Je t'aime ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <title>To you</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #FFF4F6, #FFE8EC);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
-      color: #333;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      /* Fond animé clair mais visible */
+      background: linear-gradient(135deg, #FAF5F0, #FFF1E6, #FAF5F0, #FFF8F2);
+      background-size: 800% 800%; /* plus large pour un mouvement doux */
+      animation: gradientMove 30s ease infinite;
+      color: #333333;
     }
 
-    .container {
-      width: 100%;
-      max-width: 900px;
-      background: #ffffff;
-      border-radius: 28px;
-      padding: 50px 45px 60px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-      margin-top: 60px;
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 0%; }
+      75% { background-position: 50% 50%; }
+      100% { background-position: 0% 0%; }
     }
 
-    h1 {
-      margin: 0 0 32px;
+    /* Bloc légèrement plus étroit et “vivant” */
+    .message {
+      background-color: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      width: 70%; /* moins large */
+      max-width: 600px;
+      min-width: 280px;
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(-0.2deg); }
+      50% { transform: translateY(-6px) rotate(0.2deg); }
+      75% { transform: translateY(-3px) rotate(-0.1deg); }
+    }
+
+    /* Titre centré et adaptatif */
+    .header {
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 700;
+      color: #FF6F61;
       text-align: center;
-      font-size: clamp(28px, 5vw, 38px);
-      color: #F13030;
-    }
-
-    .intro {
-      font-size: clamp(16px, 3.6vw, 19px);
-      margin-bottom: 42px;
-      text-align: left;
-    }
-
-    .reasons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .reason-block {
-      width: 100%;
-      max-width: 700px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Boutons */
-    .reason-button {
-      width: 100%;
-      padding: 16px 22px;
-      border-radius: 16px;
-      border: none;
-      background: #FFE1E6;
-      color: #F13030;
-      font-size: 17px; /* légèrement plus grand */
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
-    }
-
-    .reason-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-    }
-
-    @keyframes hintMove {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .reason-button.hint {
-      animation: hintMove 1.6s ease-in-out infinite;
-    }
-
-    /* Texte révélé */
-    .reason-text {
-      margin-top: 16px;
-      padding: 20px 24px;
-      background: #FFF6F8;
-      border-radius: 18px;
-      font-size: clamp(15px, 3.4vw, 17px);
-      line-height: 1.6;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      margin-bottom: 140px; /* plus d’espace avant le texte */
+      line-height: 1.2;
+      word-wrap: break-word;
       opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-      display: none;
+      transition: opacity 1s ease;
     }
 
-    .reason-text.visible {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
+    /* Texte aligné à gauche */
+    .middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 50px; /* espace entre phrases */
+      margin-bottom: 140px; /* espace avant le bouton */
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
-    .highlight {
-      color: #F13030;
-      font-weight: 600;
+    .middle p {
+      font-size: clamp(20px, 4.5vw, 26px);
+      margin: 0;
+      line-height: 1.6;
+      color: #333333;
+    }
+
+    .highlight-style {
+      font-weight: bold;
+      color: #FF6F61;
+    }
+
+    .highlight-pass {
+      font-weight: bold;
+      color: #FF6F61;
+    }
+
+    /* Bouton */
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .button {
+      background-color: #FF6F61;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 14px;
+      padding: 24px 48px;
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      background-color: #FF897B;
+      transform: translateY(-2px);
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Je t'aime ❤️</h1>
-
-    <div class="intro">
-      Et s'il me fallait des raisons pour t'aimer, en voici 10 :
+  <div class="message">
+    <div class="header" id="header">
+      Aujourd'hui, j'ai un message pour toi &hearts;
     </div>
 
-    <div class="reasons">
+    <div class="middle" id="middle">
+      <p>Et parce que j'aime faire les choses <span class="highlight-style">avec style</span>, je mets mes compétences d'informaticienne à contribution pour te le transmettre.</p>
+      <p>Pas d’inquiétude, tu n’auras pas besoin de compiler quoi que ce soit, il te suffit simplement de deviner le <span class="highlight-pass">mot de passe</span> pour accéder au message.</p>
+    </div>
 
-      <div class="reason-block">
-        <button class="reason-button">Raison n°1</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ton intelligence.</span>
-          J'aime la façon dont elle s'exprime sur tous les plans : logique, empathie,
-          analyse, synthèse, ouverture d'esprit et capacité à t'observer toi-même.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°2</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ton corps affûté.</span>
-          L'équilibre entre force et maîtrise, la chaleur, la tension de tes muscles sous mes doigts.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°3</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ta curiosité.</span>
-          Cette soif de comprendre, d'apprendre et de questionner le monde.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°4</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ton regard sur le monde.</span>
-          Discret, attentif, toujours juste.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°5</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime tes yeux.</span>
-          Leur forme, leurs cils, et ce qu'ils laissent voir quand tu t'ouvres.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°6</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ton assertivité.</span>
-          Ta capacité à connaître et exprimer tes besoins avec calme.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°7</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ta voix.</span>
-          Son ton, sa douceur, certains sons que tu prononces.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°8</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime ton humour.</span>
-          Intelligent, fin, toujours juste.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°9</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime tes lèvres.</span>
-          Leur douceur, leur mouvement, quand elles parlent ou me rejoignent.
-        </div>
-      </div>
-
-      <div class="reason-block">
-        <button class="reason-button">Raison n°10</button>
-        <div class="reason-text">
-          <span class="highlight">J'aime la façon dont tu prends soin de toi.</span>
-          De ton corps, de ta santé, de ton équilibre.
-        </div>
-      </div>
-
+    <div class="footer" id="footer">
+      <button class="button" onclick="location.href='password.html'">C'est parti !</button>
     </div>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.reason-button');
+    // Fade-in progressif
+    window.addEventListener('load', () => {
+      const header = document.getElementById('header');
+      const middle = document.getElementById('middle');
+      const footer = document.getElementById('footer');
 
-    function updateHint() {
-      buttons.forEach(b => b.classList.remove('hint'));
-      const next = Array.from(buttons).find(b => b.style.display !== 'none');
-      if (next) next.classList.add('hint');
-    }
-
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        const text = button.nextElementSibling;
-        button.style.opacity = 0;
-        setTimeout(() => {
-          button.style.display = 'none';
-          text.classList.add('visible');
-          updateHint();
-        }, 300);
-      });
+      setTimeout(() => { header.style.opacity = '1'; }, 200);
+      setTimeout(() => { middle.style.opacity = '1'; }, 800);
+      setTimeout(() => { footer.style.opacity = '1'; }, 1500);
     });
-
-    updateHint();
   </script>
 </body>
 </html>
