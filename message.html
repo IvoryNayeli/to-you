@@ -2,80 +2,105 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Je t'aime ❤️</title>
+  <title>Je voulais te dire que je t'aime</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       min-height: 100vh;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #FFF4F6, #FFE8EC);
+      /* Même fond animé */
+      background: linear-gradient(135deg, #FAF5F0, #FFF1E6, #FAF5F0, #FFF8F2);
+      background-size: 800% 800%;
+      animation: gradientMove 30s ease infinite;
+      color: #333333;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 40px 20px;
-      color: #333;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 0%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 0%; }
+      75% { background-position: 50% 50%; }
+      100% { background-position: 0% 0%; }
     }
 
     .container {
-      width: 100%;
-      max-width: 900px;
-      background: #ffffff;
-      border-radius: 28px;
-      padding: 50px 45px 60px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      width: 70%;
+      max-width: 600px;
+      min-width: 280px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 100px 60px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
       margin-top: 60px;
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(-0.2deg); }
+      50% { transform: translateY(-6px) rotate(0.2deg); }
+      75% { transform: translateY(-3px) rotate(-0.1deg); }
     }
 
     h1 {
-      margin: 0 0 32px;
+      margin: 0 0 140px;
       text-align: center;
-      font-size: clamp(28px, 5vw, 38px);
-      color: #F13030;
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 700;
+      color: #FF6F61;
+      line-height: 1.2;
+      word-wrap: break-word;
     }
 
     .intro {
-      font-size: clamp(16px, 3.6vw, 19px);
-      margin-bottom: 42px;
+      font-size: clamp(20px, 4.5vw, 26px);
+      margin-bottom: 50px;
       text-align: left;
+      line-height: 1.6;
+      color: #333333;
     }
 
     .reasons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 50px;
     }
 
     .reason-block {
       width: 100%;
-      max-width: 700px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
     }
 
     /* Boutons */
     .reason-button {
       width: 100%;
-      padding: 16px 22px;
-      border-radius: 16px;
+      padding: 24px 48px;
+      border-radius: 14px;
       border: none;
-      background: #FFE1E6;
-      color: #F13030;
-      font-size: 17px; /* légèrement plus grand */
-      font-weight: 600;
+      background: #FF6F61;
+      color: #FFFFFF;
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
     }
 
     .reason-button:hover {
+      background-color: #FF897B;
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
     }
 
     @keyframes hintMove {
@@ -89,17 +114,20 @@
 
     /* Texte révélé */
     .reason-text {
-      margin-top: 16px;
-      padding: 20px 24px;
-      background: #FFF6F8;
-      border-radius: 18px;
-      font-size: clamp(15px, 3.4vw, 17px);
+      margin-top: 50px;
+      padding: 60px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      font-size: clamp(20px, 4.5vw, 26px);
       line-height: 1.6;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      color: #333333;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      animation: subtleFloat 6s ease-in-out infinite;
       opacity: 0;
       transform: translateY(12px);
       transition: opacity 0.45s ease, transform 0.45s ease;
       display: none;
+      text-align: left;
     }
 
     .reason-text.visible {
@@ -109,15 +137,15 @@
     }
 
     .highlight {
-      color: #F13030;
-      font-weight: 600;
+      color: #FF6F61;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Je t'aime ❤️</h1>
+    <h1>Je voulais te dire que je t'aime &hearts;</h1>
 
     <div class="intro">
       Et s'il me fallait des raisons pour t'aimer, en voici 10 :
@@ -129,8 +157,7 @@
         <button class="reason-button">Raison n°1</button>
         <div class="reason-text">
           <span class="highlight">J'aime ton intelligence.</span>
-          J'aime la façon dont elle s'exprime sur tous les plans : logique, empathie,
-          analyse, synthèse, ouverture d'esprit et capacité à t'observer toi-même.
+          J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.
         </div>
       </div>
 
@@ -138,7 +165,7 @@
         <button class="reason-button">Raison n°2</button>
         <div class="reason-text">
           <span class="highlight">J'aime ton corps affûté.</span>
-          L'équilibre entre force et maîtrise, la chaleur, la tension de tes muscles sous mes doigts.
+          J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage. J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.
         </div>
       </div>
 
@@ -146,15 +173,15 @@
         <button class="reason-button">Raison n°3</button>
         <div class="reason-text">
           <span class="highlight">J'aime ta curiosité.</span>
-          Cette soif de comprendre, d'apprendre et de questionner le monde.
+          J'aime cette soif de connaissance qui t'habite, qui te pousse à vouloir apprendre et comprendre le monde dans lequel tu évolues.
         </div>
       </div>
 
       <div class="reason-block">
         <button class="reason-button">Raison n°4</button>
         <div class="reason-text">
-          <span class="highlight">J'aime ton regard sur le monde.</span>
-          Discret, attentif, toujours juste.
+          <span class="highlight">J'aime ton côté observateur.</span>
+          J'aime la manière dont tu observes et analyses le monde autour de toi, avec une présence discrète mais bien réelle, qui ne m'a pas laissée indifférente.
         </div>
       </div>
 
@@ -162,7 +189,7 @@
         <button class="reason-button">Raison n°5</button>
         <div class="reason-text">
           <span class="highlight">J'aime tes yeux.</span>
-          Leur forme, leurs cils, et ce qu'ils laissent voir quand tu t'ouvres.
+          J'aime la forme qu'ils ont, j'aime les longs cils qui les bordent, j'aime tout ce qu'on peut y lire quand tu choisis de t'ouvrir.
         </div>
       </div>
 
@@ -170,7 +197,7 @@
         <button class="reason-button">Raison n°6</button>
         <div class="reason-text">
           <span class="highlight">J'aime ton assertivité.</span>
-          Ta capacité à connaître et exprimer tes besoins avec calme.
+          J'aime que tu connaisses tes besoins et tes limites, et j'aime la force tranquille avec laquelle tu sais les exprimer.
         </div>
       </div>
 
@@ -178,15 +205,15 @@
         <button class="reason-button">Raison n°7</button>
         <div class="reason-text">
           <span class="highlight">J'aime ta voix.</span>
-          Son ton, sa douceur, certains sons que tu prononces.
+          J'aime sa douceur tranquille, son ton, la façon que tu as de prononcer certains sons.
         </div>
       </div>
 
       <div class="reason-block">
         <button class="reason-button">Raison n°8</button>
         <div class="reason-text">
-          <span class="highlight">J'aime ton humour.</span>
-          Intelligent, fin, toujours juste.
+          <span class="highlight">J'aime ton sens de l'humour.</span>
+          J'aime cette façon que tu as de trouver les mots justes, pertinents et amusants, qui font briller ton intelligence.
         </div>
       </div>
 
@@ -194,7 +221,7 @@
         <button class="reason-button">Raison n°9</button>
         <div class="reason-text">
           <span class="highlight">J'aime tes lèvres.</span>
-          Leur douceur, leur mouvement, quand elles parlent ou me rejoignent.
+          J'aime leur forme, leur douceur, la façon qu'elles ont de bouger quand tu parles, ou quand elles se joignent aux miennes.
         </div>
       </div>
 
@@ -202,7 +229,7 @@
         <button class="reason-button">Raison n°10</button>
         <div class="reason-text">
           <span class="highlight">J'aime la façon dont tu prends soin de toi.</span>
-          De ton corps, de ta santé, de ton équilibre.
+          J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.
         </div>
       </div>
 
