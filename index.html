@@ -1,170 +1,236 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>To you</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Je t'aime ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #FFF4F6, #FFE8EC);
       display: flex;
       justify-content: center;
-      align-items: center;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #FAF5F0, #FFF1E6, #FAF5F0, #FFF8F2);
-      background-size: 800% 800%;
-      animation: gradientMove 30s ease infinite;
-      color: #333333;
+      align-items: flex-start;
+      padding: 40px 20px;
+      color: #333;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 0%; }
-      25% { background-position: 50% 50%; }
-      50% { background-position: 100% 0%; }
-      75% { background-position: 50% 50%; }
-      100% { background-position: 0% 0%; }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 50px 45px 60px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      margin-top: 60px;
     }
 
-    .message {
-      background-color: #FFFFFF;
-      border-radius: 24px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      width: 80%;
-      max-width: 720px;
-      min-width: 300px;
-      padding: 90px 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
-      animation: subtleFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes subtleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
+    h1 {
+      margin: 0 0 32px;
+      text-align: center;
+      font-size: clamp(28px, 5vw, 38px);
+      color: #F13030;
     }
 
     .intro {
-      font-size: clamp(18px, 4vw, 22px);
-      line-height: 1.6;
-    }
-
-    .highlight {
-      font-weight: bold;
-      color: #FF6F61;
-    }
-
-    .reveal-zone {
-      position: relative;
-      min-height: 160px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .reveal-button {
-      position: absolute;
-      background-color: #FF6F61;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 14px;
-      padding: 18px 36px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .reveal-button.pulse {
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
-    }
-
-    .reason-card {
-      background-color: #FFF1E6;
-      border-radius: 18px;
-      padding: 30px 36px;
-      font-size: 18px;
-      line-height: 1.6;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      font-size: clamp(16px, 3.6vw, 19px);
+      margin-bottom: 42px;
       text-align: left;
     }
 
-    .reason-card.show {
+    .reasons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .reason-block {
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Boutons */
+    .reason-button {
+      width: 100%;
+      padding: 16px 22px;
+      border-radius: 16px;
+      border: none;
+      background: #FFE1E6;
+      color: #F13030;
+      font-size: 17px; /* légèrement plus grand */
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
+    }
+
+    .reason-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    @keyframes hintMove {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .reason-button.hint {
+      animation: hintMove 1.6s ease-in-out infinite;
+    }
+
+    /* Texte révélé */
+    .reason-text {
+      margin-top: 16px;
+      padding: 20px 24px;
+      background: #FFF6F8;
+      border-radius: 18px;
+      font-size: clamp(15px, 3.4vw, 17px);
+      line-height: 1.6;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      display: none;
+    }
+
+    .reason-text.visible {
+      display: block;
       opacity: 1;
       transform: translateY(0);
     }
+
+    .highlight {
+      color: #F13030;
+      font-weight: 600;
+    }
   </style>
 </head>
-<body>
 
-  <div class="message">
+<body>
+  <div class="container">
+    <h1>Je t'aime ❤️</h1>
+
     <div class="intro">
-      Et s’il existait mille façons de dire ce que je ressens…  
-      <br><br>
-      Voici <span class="highlight">dix raisons</span>, parmi tant d’autres.
+      Et s'il me fallait des raisons pour t'aimer, en voici 10 :
     </div>
 
-    <div class="reveal-zone">
-      <button class="reveal-button pulse" id="revealBtn">
-        Raison n°1
-      </button>
+    <div class="reasons">
 
-      <div class="reason-card" id="reasonCard">
-        J’aime <span class="highlight">ta façon de voir le monde</span>, celle qui mêle intelligence, sensibilité et profondeur sans jamais forcer.
+      <div class="reason-block">
+        <button class="reason-button">Raison n°1</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton intelligence.</span>
+          J'aime la façon dont elle s'exprime sur tous les plans : logique, empathie,
+          analyse, synthèse, ouverture d'esprit et capacité à t'observer toi-même.
+        </div>
       </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°2</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton corps affûté.</span>
+          L'équilibre entre force et maîtrise, la chaleur, la tension de tes muscles sous mes doigts.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°3</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ta curiosité.</span>
+          Cette soif de comprendre, d'apprendre et de questionner le monde.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°4</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton regard sur le monde.</span>
+          Discret, attentif, toujours juste.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°5</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime tes yeux.</span>
+          Leur forme, leurs cils, et ce qu'ils laissent voir quand tu t'ouvres.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°6</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton assertivité.</span>
+          Ta capacité à connaître et exprimer tes besoins avec calme.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°7</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ta voix.</span>
+          Son ton, sa douceur, certains sons que tu prononces.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°8</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime ton humour.</span>
+          Intelligent, fin, toujours juste.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°9</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime tes lèvres.</span>
+          Leur douceur, leur mouvement, quand elles parlent ou me rejoignent.
+        </div>
+      </div>
+
+      <div class="reason-block">
+        <button class="reason-button">Raison n°10</button>
+        <div class="reason-text">
+          <span class="highlight">J'aime la façon dont tu prends soin de toi.</span>
+          De ton corps, de ta santé, de ton équilibre.
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
-    const reasons = [
-      "J’aime <span class='highlight'>ta façon de voir le monde</span>, celle qui mêle intelligence, sensibilité et profondeur sans jamais forcer.",
-      "J’aime <span class='highlight'>ta présence</span>, même silencieuse, qui apaise et rassure.",
-      "J’aime <span class='highlight'>ta curiosité</span>, cette envie sincère de comprendre, d’apprendre, d’explorer.",
-      "J’aime <span class='highlight'>ta douceur</span>, parfois discrète, mais toujours sincère.",
-      "J’aime <span class='highlight'>ton regard</span>, quand il s’illumine pour des choses simples.",
-      "J’aime <span class='highlight'>ta façon d’aimer</span>, entière et vraie.",
-      "J’aime <span class='highlight'>ton humour</span>, même quand il est un peu maladroit.",
-      "J’aime <span class='highlight'>ta force</span>, celle que tu ne montres pas toujours.",
-      "J’aime <span class='highlight'>ce que tu éveilles en moi</span>, sans même le chercher.",
-      "J’aime <span class='highlight'>toi</span>, simplement."
-    ];
+    const buttons = document.querySelectorAll('.reason-button');
 
-    let index = 0;
-    const btn = document.getElementById('revealBtn');
-    const card = document.getElementById('reasonCard');
+    function updateHint() {
+      buttons.forEach(b => b.classList.remove('hint'));
+      const next = Array.from(buttons).find(b => b.style.display !== 'none');
+      if (next) next.classList.add('hint');
+    }
 
-    btn.addEventListener('click', () => {
-      btn.classList.remove('pulse');
-      btn.style.opacity = '0';
-
-      setTimeout(() => {
-        card.innerHTML = reasons[index];
-        card.classList.add('show');
-      }, 300);
-
-      setTimeout(() => {
-        index++;
-        if (index < reasons.length) {
-          btn.textContent = `Raison n°${index + 1}`;
-          btn.style.opacity = '1';
-          btn.classList.add('pulse');
-          card.classList.remove('show');
-        } else {
-          btn.style.display = 'none';
-        }
-      }, 2000);
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const text = button.nextElementSibling;
+        button.style.opacity = 0;
+        setTimeout(() => {
+          button.style.display = 'none';
+          text.classList.add('visible');
+          updateHint();
+        }, 300);
+      });
     });
-  </script>
 
+    updateHint();
+  </script>
 </body>
 </html>
