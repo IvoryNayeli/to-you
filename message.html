@@ -12,7 +12,6 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      /* Fond identique à password.html */
       background: radial-gradient(circle at top left, #FAF5F0, #FFF1E6, #FFF8F2);
       color: #494949;
       overflow-x: hidden;
@@ -28,6 +27,7 @@
       padding: 60px 50px;
       display: flex;
       flex-direction: column;
+      align-items: center;
       animation: subtleFloat 6s ease-in-out infinite;
     }
 
@@ -57,10 +57,11 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100%;
     }
 
     .list-item {
-      background-color: #FFF1E6; /* léger fond pour chaque item */
+      background-color: #FFF1E6;
       padding: 20px 25px;
       border-radius: 16px;
       font-size: clamp(18px, 3.8vw, 22px);
@@ -72,16 +73,37 @@
       color: #494949;
     }
 
-    .list-item span.number {
-      font-weight: 700;
-      color: #FF5D73;
-      margin-right: 10px;
-      font-size: 1.2em;
+    .list-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .list-item:hover {
-      transform: translateY(0) scale(1.02);
-      box-shadow: 0 8px 20px rgba(255,93,115,0.2);
+    .number-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #FF5D73;
+      background-color: #FFFFFF;
+      color: #FF5D73;
+      font-weight: bold;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .number-button:hover {
+      transform: scale(1.1);
+      background-color: #FFDEE3;
+    }
+
+    .item-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
   </style>
@@ -92,27 +114,69 @@
     <div class="intro">Et s'il me fallait des raisons pour t'aimer, en voici 10 :</div>
 
     <div class="list" id="list">
-      <div class="list-item"><span class="number">1 -</span> J'aime ton intelligence. J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.</div>
-      <div class="list-item"><span class="number">2 -</span> J'aime ton corps "affûté". J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage. J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.</div>
-      <div class="list-item"><span class="number">3 -</span> J'aime ta curiosité. J'aime cette soif de connaissance qui t'habite, qui te pousse à vouloir apprendre et comprendre le monde dans lequel tu évolues.</div>
-      <div class="list-item"><span class="number">4 -</span> J'aime ton côté observateur. J'aime la manière dont tu observes et analyses le monde autour de toi, avec une présence discrète mais bien réelle, qui ne m'a jamais laissée indifférente.</div>
-      <div class="list-item"><span class="number">5 -</span> J'aime tes yeux. J'aime la forme qu'ils ont, j'aime les longs cils qui les bordent, j'aime tout ce qu'on peut y lire quand tu choisis de t'ouvrir.</div>
-      <div class="list-item"><span class="number">6 -</span> J'aime ton assertivité. J'aime que tu connaisses tes besoins et tes limites, et j'aime la force tranquille avec laquelle tu sais les exprimer.</div>
-      <div class="list-item"><span class="number">7 -</span> J'aime ta voix. J'aime sa douceur tranquille, son ton, la façon que tu as de prononcer certains sons.</div>
-      <div class="list-item"><span class="number">8 -</span> J'aime ton sens de l'humour. J'aime cette façon que tu as de trouver les mots justes, pertinents et amusants, qui font briller ton intelligence.</div>
-      <div class="list-item"><span class="number">9 -</span> J'aime tes lèvres. J'aime leur forme, leur douceur, la façon qu'elles ont de bouger quand tu parles, ou quand elles se joignent aux miennes.</div>
-      <div class="list-item"><span class="number">10 -</span> J'aime la façon dont tu prends soin de toi. J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.</div>
+      <!-- Chaque item avec bouton -->
+      <div class="item-container">
+        <div class="number-button" data-index="0">1</div>
+        <div class="list-item">J'aime ton intelligence. J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="1">2</div>
+        <div class="list-item">J'aime ton corps "affûté". J'aime le regarder, admirer l'équilibre entre force et maîtrise qui s'en dégage. J'aime le sentir contre moi, sa chaleur, la tension de ses muscles sous mes doigts.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="2">3</div>
+        <div class="list-item">J'aime ta curiosité. J'aime cette soif de connaissance qui t'habite, qui te pousse à vouloir apprendre et comprendre le monde dans lequel tu évolues.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="3">4</div>
+        <div class="list-item">J'aime ton côté observateur. J'aime la manière dont tu observes et analyses le monde autour de toi, avec une présence discrète mais bien réelle, qui ne m'a jamais laissée indifférente.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="4">5</div>
+        <div class="list-item">J'aime tes yeux. J'aime la forme qu'ils ont, j'aime les longs cils qui les bordent, j'aime tout ce qu'on peut y lire quand tu choisis de t'ouvrir.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="5">6</div>
+        <div class="list-item">J'aime ton assertivité. J'aime que tu connaisses tes besoins et tes limites, et j'aime la force tranquille avec laquelle tu sais les exprimer.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="6">7</div>
+        <div class="list-item">J'aime ta voix. J'aime sa douceur tranquille, son ton, la façon que tu as de prononcer certains sons.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="7">8</div>
+        <div class="list-item">J'aime ton sens de l'humour. J'aime cette façon que tu as de trouver les mots justes, pertinents et amusants, qui font briller ton intelligence.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="8">9</div>
+        <div class="list-item">J'aime tes lèvres. J'aime leur forme, leur douceur, la façon qu'elles ont de bouger quand tu parles, ou quand elles se joignent aux miennes.</div>
+      </div>
+
+      <div class="item-container">
+        <div class="number-button" data-index="9">10</div>
+        <div class="list-item">J'aime la façon dont tu prends soin de toi. J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.</div>
+      </div>
     </div>
   </div>
 
   <script>
-    window.addEventListener('load', () => {
-      const items = document.querySelectorAll('.list-item');
-      items.forEach((item, idx) => {
-        setTimeout(() => {
-          item.style.opacity = 1;
-          item.style.transform = 'translateY(0)';
-        }, idx * 500); // apparition progressive
+    const buttons = document.querySelectorAll('.number-button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.index;
+        const item = btn.nextElementSibling;
+        item.classList.add('visible');
+        btn.disabled = true;
+        btn.style.backgroundColor = "#FFDEE3";
+        btn.style.transform = "scale(1.0)";
       });
     });
   </script>
