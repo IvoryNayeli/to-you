@@ -28,7 +28,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-top: 60px; /* Bloc plus bas pour voir le fond */
+      margin-top: 60px; /* Bloc un peu plus bas */
     }
 
     .header {
@@ -53,7 +53,7 @@
       flex-direction: column;
       gap: 20px;
       width: 100%;
-      align-items: center; /* Pour que les boutons soient centrés */
+      align-items: center; /* Boutons centrés */
     }
 
     .item-container {
@@ -79,7 +79,7 @@
       margin-bottom: 12px;
       transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease, opacity 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      animation: pulse 2s infinite;
+      animation: pulse 1.5s infinite;
     }
 
     .number-button:hover {
@@ -91,6 +91,18 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
+    }
+
+    /* Animation hint du prochain bouton */
+    @keyframes hintShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    .number-button.hint {
+      animation: hintShake 0.8s ease-in-out infinite;
     }
 
     .list-item {
@@ -119,7 +131,6 @@
       color: #FF5D73;
       font-weight: 600;
     }
-
   </style>
 </head>
 <body>
@@ -128,6 +139,7 @@
     <div class="intro">Et s'il me fallait des raisons pour t'aimer, en voici 10 :</div>
 
     <div class="list" id="list">
+      <!-- Points -->
       <div class="item-container">
         <div class="number-button" data-index="0">1</div>
         <div class="list-item"><span class="highlight">J'aime ton intelligence.</span> J'aime la façon dont elle s'exprime sur tous les plans : dans la logique et le rationnel, dans l'empathie et la compréhension de l'autre, dans ta capacité à analyser et à synthétiser, dans ton ouverture d'esprit et ta faculté à t'observer toi-même.</div>
@@ -177,20 +189,43 @@
         <div class="number-button" data-index="9">10</div>
         <div class="list-item"><span class="highlight">J'aime la façon dont tu prends soin de toi.</span> J'aime que tu t'habilles avec soin, que tu mettes l'accent sur ta santé et que tu veilles sur ton hygiène de vie, d'une manière qui m'inspire.</div>
       </div>
-
     </div>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.number-button');
+    const buttons = Array.from(document.querySelectorAll('.number-button'));
+    const items = Array.from(document.querySelectorAll('.list-item'));
+
+    let hintIndex = 0;
+
+    // Tap-to-reveal
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.nextElementSibling;
-        btn.style.opacity = 0; // bouton disparaît
+        btn.style.opacity = 0;
         setTimeout(() => btn.style.display = 'none', 300);
         item.classList.add('visible');
       });
     });
+
+    // Animation hint sur le prochain bouton
+    function startHintAnimation() {
+      setInterval(() => {
+        // enlever hint sur tous
+        buttons.forEach(b => b.classList.remove('hint'));
+        // trouver premier bouton visible
+        while(hintIndex < buttons.length && buttons[hintIndex].style.display === 'none') {
+          hintIndex++;
+        }
+        if(hintIndex < buttons.length) {
+          buttons[hintIndex].classList.add('hint');
+          hintIndex++;
+        } else {
+          hintIndex = 0; // recommencer
+        }
+      }, 3000);
+    }
+    startHintAnimation();
   </script>
 </body>
 </html>
