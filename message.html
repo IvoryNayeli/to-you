@@ -58,6 +58,8 @@
       color: #FF6F61;
       line-height: 1.2;
       word-wrap: break-word;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .intro {
@@ -66,6 +68,8 @@
       text-align: left;
       line-height: 1.6;
       color: #333333;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .reasons {
@@ -73,6 +77,8 @@
       flex-direction: column;
       align-items: center;
       gap: 50px;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .reason-block {
@@ -145,13 +151,13 @@
 
 <body>
   <div class="container">
-    <h1>Je voulais te dire que je t'aime &hearts;</h1>
+    <h1 id="header">Je voulais te dire que je t'aime &hearts;</h1>
 
-    <div class="intro">
+    <div class="intro" id="intro">
       Et s'il me fallait des raisons pour t'aimer, en voici 10 :
     </div>
 
-    <div class="reasons">
+    <div class="reasons" id="reasons">
 
       <div class="reason-block">
         <button class="reason-button">Raison n°1</button>
@@ -237,6 +243,18 @@
   </div>
 
   <script>
+    // Fade-in progressif
+    window.addEventListener('load', () => {
+      const header = document.getElementById('header');
+      const intro = document.getElementById('intro');
+      const reasons = document.getElementById('reasons');
+
+      setTimeout(() => { header.style.opacity = '1'; }, 200);
+      setTimeout(() => { intro.style.opacity = '1'; }, 800);
+      setTimeout(() => { reasons.style.opacity = '1'; }, 1500);
+    });
+
+    // Logique des boutons
     const buttons = document.querySelectorAll('.reason-button');
 
     function updateHint() {
