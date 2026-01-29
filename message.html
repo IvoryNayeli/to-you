@@ -260,7 +260,7 @@ buttons.forEach(button => {
   const text = button.nextElementSibling;
   
   button.addEventListener('click', (e) => {
-    e.stopPropagation(); // Empêche la propagation
+    e.stopPropagation();
     button.style.opacity = 0;
     setTimeout(() => {
       button.style.display = 'none';
@@ -279,19 +279,20 @@ buttons.forEach(button => {
   });
   
   // Clic sur texte pour le re-cacher
-text.addEventListener('click', (e) => {
-  e.stopPropagation();
-  // Cacher le texte
-  text.classList.remove('visible');
-  
-  // Réafficher le bouton immédiatement (pas de setTimeout)
-  button.style.display = 'block';
-  setTimeout(() => {
-    button.style.opacity = 1;
-    updateHint();
-  }, 50);
+  text.addEventListener('click', (e) => {
+    e.stopPropagation();
+    text.classList.remove('visible');
+    
+    // Réafficher le bouton immédiatement
+    button.style.display = 'block';
+    setTimeout(() => {
+      button.style.opacity = 1;
+      updateHint();
+    }, 50);
+  });
 });
-updateHint();
+
+updateHint();  // Cette ligne doit être APRÈS la boucle forEach, pas dedans !
   </script>
 </body>
 </html>
