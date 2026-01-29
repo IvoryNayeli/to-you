@@ -247,33 +247,57 @@
     });
 
     // Logique des boutons
-    const buttons = document.querySelectorAll('.reason-button');
+const buttons = document.querySelectorAll('.reason-button');
 
-    function updateHint() {
-      buttons.forEach(b => b.classList.remove('hint'));
-      const next = Array.from(buttons).find(b => b.style.display !== 'none');
-      if (next) next.classList.add('hint');
-    }
+function updateHint() {
+  buttons.forEach(b => b.classList.remove('hint'));
+  const next = Array.from(buttons).find(b => b.style.display !== 'none');
+  if (next) next.classList.add('hint');
+}
 
-    // Permettre de re-cacher les textes en cliquant dessus
-    buttons.forEach(button => {
-      const text = button.nextElementSibling;
+// Clic sur bouton pour révéler le texte
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const text = button.nextElementSibling;
+    button.style.opacity = 0;
+    setTimeout(() => {
+      button.style.display = 'none';
+      text.classList.add('visible');
+      
+      // Scroll automatique vers le texte révélé
+      setTimeout(() => {
+        text.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 100);
+      
+      updateHint();
+    }, 300);
+  });
+});
+
+// Clic sur texte pour le re-cacher
+buttons.forEach(button => {
+  const text = button.nextElementSibling;
   
-      text.addEventListener('click', () => {
-        // Cacher le texte
-        text.classList.remove('visible');
+  text.addEventListener('click', () => {
+    // Cacher le texte
+    text.classList.remove('visible');
     
-        setTimeout(() => {
-          text.style.display = 'none';
-          // Réafficher le bouton
-          button.style.display = 'block';
-          setTimeout(() => {
-            button.style.opacity = 1;
-            updateHint();
-          }, 50);
-        }, 300);
-      });
-    });
+    setTimeout(() => {
+      text.style.display = 'none';
+      // Réafficher le bouton
+      button.style.display = 'block';
+      setTimeout(() => {
+        button.style.opacity = 1;
+        updateHint();
+      }, 50);
+    }, 300);
+  });
+});
+
+updateHint();
 
     updateHint();
   </script>
