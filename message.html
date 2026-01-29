@@ -279,22 +279,18 @@ buttons.forEach(button => {
   });
   
   // Clic sur texte pour le re-cacher
-  text.addEventListener('click', (e) => {
-    e.stopPropagation(); // Empêche la propagation
-    // Cacher le texte
-    text.classList.remove('visible');
-    
-    setTimeout(() => {
-      // Réafficher le bouton
-      button.style.display = 'block';
-      setTimeout(() => {
-        button.style.opacity = 1;
-        updateHint();
-      }, 50);
-    }, 300);
-  });
+text.addEventListener('click', (e) => {
+  e.stopPropagation();
+  // Cacher le texte
+  text.classList.remove('visible');
+  
+  // Réafficher le bouton immédiatement (pas de setTimeout)
+  button.style.display = 'block';
+  setTimeout(() => {
+    button.style.opacity = 1;
+    updateHint();
+  }, 50);
 });
-
 updateHint();
   </script>
 </body>
