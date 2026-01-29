@@ -257,8 +257,10 @@ function updateHint() {
 
 // Clic sur bouton pour révéler le texte
 buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    const text = button.nextElementSibling;
+  const text = button.nextElementSibling;
+  
+  button.addEventListener('click', (e) => {
+    e.stopPropagation(); // Empêche la propagation
     button.style.opacity = 0;
     setTimeout(() => {
       button.style.display = 'none';
@@ -275,18 +277,14 @@ buttons.forEach(button => {
       updateHint();
     }, 300);
   });
-});
-
-// Clic sur texte pour le re-cacher
-buttons.forEach(button => {
-  const text = button.nextElementSibling;
   
-  text.addEventListener('click', () => {
+  // Clic sur texte pour le re-cacher
+  text.addEventListener('click', (e) => {
+    e.stopPropagation(); // Empêche la propagation
     // Cacher le texte
     text.classList.remove('visible');
     
     setTimeout(() => {
-      text.style.display = 'none';
       // Réafficher le bouton
       button.style.display = 'block';
       setTimeout(() => {
@@ -298,8 +296,6 @@ buttons.forEach(button => {
 });
 
 updateHint();
-
-    updateHint();
   </script>
 </body>
 </html>
