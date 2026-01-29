@@ -145,6 +145,17 @@
       setTimeout(() => { middle.style.opacity = '1'; }, 500);
       setTimeout(() => { footer.style.opacity = '1'; }, 800);
     });
+
+    // Effet parallaxe au scroll
+    window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const container = document.querySelector('.message') || document.querySelector('.container');
+  
+    if (container) {
+      // Mouvement très subtil
+      container.style.transform = `translateY(${scrolled * 0.05}px)`;
+    }
+});
   </script>
 </body>
 </html>
