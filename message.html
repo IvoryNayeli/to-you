@@ -255,16 +255,25 @@
     }
 
     buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        const text = button.nextElementSibling;
-        button.style.opacity = 0;
+    button.addEventListener('click', () => {
+      const text = button.nextElementSibling;
+      button.style.opacity = 0;
+      setTimeout(() => {
+        button.style.display = 'none';
+        text.classList.add('visible');
+      
+        // Scroll automatique vers le texte révélé
         setTimeout(() => {
-          button.style.display = 'none';
-          text.classList.add('visible');
-          updateHint();
-        }, 300);
-      });
+          text.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }, 100);
+      
+        updateHint();
+      }, 300);
     });
+  });
 
     updateHint();
   </script>
