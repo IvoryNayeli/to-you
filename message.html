@@ -82,6 +82,7 @@
       flex-direction: column;
       align-items: stretch;
       margin-bottom: 10px;
+      position: relative;
     }
 
     /* Boutons */
@@ -133,6 +134,7 @@
       transition: opacity 0.45s ease, transform 0.45s ease;
       display: none;
       text-align: left;
+      position: relative;
     }
 
     .reason-text.visible {
@@ -145,6 +147,33 @@
       color: #FF6F61;
       font-weight: bold;
       display: block;
+    }
+
+    /* Animation des cœurs */
+    .heart {
+      position: absolute;
+      font-size: 12px;
+      color: #FF6F61;
+      pointer-events: none;
+      z-index: 10;
+      animation: floatHeart 2s ease-out forwards;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+        opacity: 1;
+        filter: blur(0px);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-80px) translateX(var(--drift)) rotate(var(--rotation)) scale(1);
+        opacity: 0;
+        filter: blur(2px);
+      }
     }
   </style>
 </head>
@@ -235,7 +264,7 @@
         <button class="reason-button">Raison n°10</button>
         <div class="reason-text">
           <span class="highlight">J'aime la personne que tu es.</span>
-           J’aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es.
+           J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es.
         </div>
       </div>
 
@@ -254,53 +283,96 @@
       setTimeout(() => { reasons.style.opacity = '1'; }, 800);
     });
 
+    // Fonction pour créer les cœurs
+    function createHearts(element) {
+      const heartCount = 4;
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '♥';
+        
+        // Position de départ au centre du bloc
+        heart.style.left = centerX + 'px';
+        heart.style.top = centerY + 'px';
+        
+        // Variables CSS pour dérive horizontale et rotation aléatoires
+        const drift = (Math.random() - 0.5) * 40; // -20px à +20px
+        const rotation = (Math.random() - 0.5) * 60; // -30deg à +30deg
+        heart.style.setProperty('--drift', drift + 'px');
+        heart.style.setProperty('--rotation', rotation + 'deg');
+        
+        // Opacité variable
+        const opacity = 0.6 + Math.random() * 0.4; // 0.6 à 1.0
+        heart.style.opacity = opacity;
+        
+        // Taille variable
+        const size = 10 + Math.random() * 4; // 10px à 14px
+        heart.style.fontSize = size + 'px';
+        
+        // Délai échelonné
+        heart.style.animationDelay = (i * 0.1) + 's';
+        
+        element.appendChild(heart);
+        
+        // Supprimer le cœur après l'animation
+        setTimeout(() => heart.remove(), 2100 + (i * 100));
+      }
+    }
+
     // Logique des boutons
-const buttons = document.querySelectorAll('.reason-button');
+    const buttons = document.querySelectorAll('.reason-button');
 
-function updateHint() {
-  buttons.forEach(b => b.classList.remove('hint'));
-  const next = Array.from(buttons).find(b => b.style.display !== 'none');
-  if (next) next.classList.add('hint');
-}
+    function updateHint() {
+      buttons.forEach(b => b.classList.remove('hint'));
+      const next = Array.from(buttons).find(b => b.style.display !== 'none');
+      if (next) next.classList.add('hint');
+    }
 
-// Clic sur bouton pour révéler le texte
-buttons.forEach(button => {
-  const text = button.nextElementSibling;
-  
-  button.addEventListener('click', (e) => {
-    e.stopPropagation();
-    button.style.opacity = 0;
-    setTimeout(() => {
-      button.style.display = 'none';
-      text.classList.add('visible');
+    // Clic sur bouton pour révéler le texte
+    buttons.forEach(button => {
+      const text = button.nextElementSibling;
       
-      // Scroll automatique vers le texte révélé
-      setTimeout(() => {
-        text.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-      }, 100);
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        button.style.opacity = 0;
+        setTimeout(() => {
+          button.style.display = 'none';
+          text.classList.add('visible');
+          
+          // Créer les cœurs quand le texte apparaît
+          createHearts(text);
+          
+          // Scroll automatique vers le texte révélé
+          setTimeout(() => {
+            text.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }, 100);
+          
+          updateHint();
+        }, 300);
+      });
       
-      updateHint();
-    }, 300);
-  });
-  
-  // Clic sur texte pour le re-cacher
-  text.addEventListener('click', (e) => {
-    e.stopPropagation();
-    text.classList.remove('visible');
-    
-    // Réafficher le bouton immédiatement
-    button.style.display = 'block';
-    setTimeout(() => {
-      button.style.opacity = 1;
-      updateHint();
-    }, 50);
-  });
-});
+      // Clic sur texte pour le re-cacher
+      text.addEventListener('click', (e) => {
+        e.stopPropagation();
+        text.classList.remove('visible');
+        
+        // Réafficher le bouton immédiatement
+        button.style.display = 'block';
+        setTimeout(() => {
+          button.style.opacity = 1;
+          updateHint();
+        }, 50);
+      });
+    });
 
-updateHint();  // Cette ligne doit être APRÈS la boucle forEach, pas dedans !
+    updateHint();
   </script>
 </body>
 </html>
