@@ -167,24 +167,26 @@
       display: block;
     }
 
-    /* Confettis en forme de cœur */
-    .heart-confetti {
+    /* Explosion de cœurs */
+    .heart-burst {
       position: fixed;
       font-size: 14px;
       color: #FF6F61;
       pointer-events: none;
       z-index: 1000;
-      animation: fallConfetti 3s ease-out forwards;
-      opacity: 0.9;
+      animation: burstOut 1.5s ease-out forwards;
     }
 
-    @keyframes fallConfetti {
+    @keyframes burstOut {
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+      }
+      50% {
         opacity: 1;
       }
       100% {
-        transform: translateY(100vh) rotate(var(--rotation));
+        transform: translate(var(--tx), var(--ty)) scale(1);
         opacity: 0;
       }
     }
@@ -296,42 +298,44 @@
       setTimeout(() => { reasons.style.opacity = '1'; }, 800);
     });
 
-    // Fonction pour créer les confettis en forme de cœur
-    function createHeartConfetti(clickX, clickY) {
-      const confettiCount = 8;
+    // Fonction pour créer l'explosion de cœurs
+    function createHeartBurst(clickX, clickY) {
+      const heartCount = 10;
+      const radius = 100; // Distance de l'explosion
       
-      for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('heart-confetti');
-        confetti.textContent = '♥';
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-burst');
+        heart.textContent = '♥';
         
-        // Position de départ à l'endroit du clic
-        confetti.style.left = clickX + 'px';
-        confetti.style.top = clickY + 'px';
+        // Position de départ au centre du clic
+        heart.style.left = clickX + 'px';
+        heart.style.top = clickY + 'px';
         
-        // Rotation aléatoire
-        const rotation = Math.random() * 720 - 360; // -360deg à 360deg
-        confetti.style.setProperty('--rotation', rotation + 'deg');
+        // Calculer la direction (cercle complet)
+        const angle = (i / heartCount) * Math.PI * 2;
+        const distance = radius + Math.random() * 30; // Variation de distance
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
         
-        // Décalage horizontal aléatoire pendant la chute
-        const horizontalDrift = (Math.random() - 0.5) * 200;
-        confetti.style.transform = `translateX(${horizontalDrift}px)`;
+        heart.style.setProperty('--tx', tx + 'px');
+        heart.style.setProperty('--ty', ty + 'px');
         
         // Taille variable
         const size = 12 + Math.random() * 6; // 12px à 18px
-        confetti.style.fontSize = size + 'px';
+        heart.style.fontSize = size + 'px';
         
-        // Délai échelonné
-        confetti.style.animationDelay = (i * 0.05) + 's';
+        // Délai échelonné pour un effet progressif
+        heart.style.animationDelay = (i * 0.03) + 's';
         
         // Variations de couleur
         const colorVariations = ['#FF6F61', '#FF897B', '#FFB3AB'];
-        confetti.style.color = colorVariations[Math.floor(Math.random() * colorVariations.length)];
+        heart.style.color = colorVariations[Math.floor(Math.random() * colorVariations.length)];
         
-        document.body.appendChild(confetti);
+        document.body.appendChild(heart);
         
-        // Supprimer le confetti après l'animation
-        setTimeout(() => confetti.remove(), 3100 + (i * 50));
+        // Supprimer le cœur après l'animation
+        setTimeout(() => heart.remove(), 1600 + (i * 30));
       }
     }
 
@@ -351,8 +355,8 @@
       button.addEventListener('click', (e) => {
         e.stopPropagation();
         
-        // Créer les confettis à la position du clic
-        createHeartConfetti(e.clientX, e.clientY);
+        // Créer l'explosion de cœurs à la position du clic
+        createHeartBurst(e.clientX, e.clientY);
         
         button.style.opacity = 0;
         setTimeout(() => {
