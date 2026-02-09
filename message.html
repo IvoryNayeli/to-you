@@ -136,6 +136,7 @@
       display: none;
       text-align: left;
       position: relative;
+      overflow: hidden;
     }
 
     .reason-text.visible {
@@ -161,34 +162,46 @@
       }
     }
 
+    /* Effet de brillance */
+    .reason-text::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transform: skewX(-20deg);
+      opacity: 0;
+    }
+
+    .reason-text.shine::after {
+      animation: shine 1s ease-out;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        left: 150%;
+        opacity: 0;
+      }
+    }
+
     .highlight {
       color: #FF6F61;
       font-weight: bold;
       display: block;
-    }
-
-    /* Explosion de cœurs */
-    .heart-burst {
-      position: fixed;
-      font-size: 14px;
-      color: #FF6F61;
-      pointer-events: none;
-      z-index: 1000;
-      animation: burstOut 1.5s ease-out forwards;
-    }
-
-    @keyframes burstOut {
-      0% {
-        transform: translate(0, 0) scale(0.5);
-        opacity: 1;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translate(var(--tx), var(--ty)) scale(1);
-        opacity: 0;
-      }
     }
   </style>
 </head>
@@ -279,7 +292,7 @@
         <button class="reason-button">Raison n°10</button>
         <div class="reason-text">
           <span class="highlight">J'aime la personne que tu es.</span>
-           J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
+           J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es.
         </div>
       </div>
 
@@ -298,47 +311,6 @@
       setTimeout(() => { reasons.style.opacity = '1'; }, 800);
     });
 
-    // Fonction pour créer l'explosion de cœurs
-    function createHeartBurst(clickX, clickY) {
-      const heartCount = 10;
-      const radius = 100; // Distance de l'explosion
-      
-      for (let i = 0; i < heartCount; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-burst');
-        heart.textContent = '♥';
-        
-        // Position de départ au centre du clic
-        heart.style.left = clickX + 'px';
-        heart.style.top = clickY + 'px';
-        
-        // Calculer la direction (cercle complet)
-        const angle = (i / heartCount) * Math.PI * 2;
-        const distance = radius + Math.random() * 30; // Variation de distance
-        const tx = Math.cos(angle) * distance;
-        const ty = Math.sin(angle) * distance;
-        
-        heart.style.setProperty('--tx', tx + 'px');
-        heart.style.setProperty('--ty', ty + 'px');
-        
-        // Taille variable
-        const size = 12 + Math.random() * 6; // 12px à 18px
-        heart.style.fontSize = size + 'px';
-        
-        // Délai échelonné pour un effet progressif
-        heart.style.animationDelay = (i * 0.03) + 's';
-        
-        // Variations de couleur
-        const colorVariations = ['#FF6F61', '#FF897B', '#FFB3AB'];
-        heart.style.color = colorVariations[Math.floor(Math.random() * colorVariations.length)];
-        
-        document.body.appendChild(heart);
-        
-        // Supprimer le cœur après l'animation
-        setTimeout(() => heart.remove(), 1600 + (i * 30));
-      }
-    }
-
     // Logique des boutons
     const buttons = document.querySelectorAll('.reason-button');
 
@@ -355,9 +327,6 @@
       button.addEventListener('click', (e) => {
         e.stopPropagation();
         
-        // Créer l'explosion de cœurs à la position du clic
-        createHeartBurst(e.clientX, e.clientY);
-        
         button.style.opacity = 0;
         setTimeout(() => {
           button.style.display = 'none';
@@ -366,6 +335,10 @@
           // Ajouter l'effet pulse
           text.classList.add('pulse');
           setTimeout(() => text.classList.remove('pulse'), 600);
+          
+          // Ajouter l'effet de brillance
+          text.classList.add('shine');
+          setTimeout(() => text.classList.remove('shine'), 1000);
           
           // Scroll automatique vers le texte révélé
           setTimeout(() => {
