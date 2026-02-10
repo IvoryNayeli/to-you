@@ -198,14 +198,14 @@
     <div class="header" id="header">Rendez-vous à 19h chez moi ce soir ?</div>
 
     <div class="buttons-container" id="buttons-container">
-      <button class="button" id="yes-button">Oui !</button>
+      <button class="button" id="yes-button">Oui</button>
       <button class="button" id="no-button">Non</button>
     </div>
 
     <div class="error-message" id="error-message"></div>
 
     <div class="success-container" id="success-container">
-      <div class="success-text">J'ai hâte de te retrouver</div>
+      <div class="success-text">J'ai hâte de te retrouver ! &hearts;</div>
       <img src="oui.gif" alt="Joie" class="success-gif">
     </div>
   </div>
@@ -285,7 +285,7 @@
 
       // Après 2 secondes, afficher l'erreur
       setTimeout(() => {
-        errorMessage.textContent = 'Erreur : cette réponse n\'est pas disponible 😏';
+        errorMessage.textContent = 'Erreur : cette réponse n\'est pas disponible.';
         errorMessage.classList.add('show');
 
         // Griser et désactiver le bouton
