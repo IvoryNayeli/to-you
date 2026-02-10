@@ -13,7 +13,6 @@
       justify-content: center;
       align-items: center;
       font-family: 'Montserrat', sans-serif;
-      /* Même fond animé */
       background: linear-gradient(135deg, #FAF5F0, #FFF1E6, #FAF5F0, #FFF8F2);
       background-size: 800% 800%;
       animation: gradientMove 30s ease infinite;
@@ -86,7 +85,6 @@
       position: relative;
     }
 
-    /* Boutons */
     .reason-button {
       width: 100%;
       padding: 16px 32px;
@@ -119,7 +117,6 @@
       animation: hintShake 3s ease-in-out infinite;
     }
 
-    /* Texte révélé */
     .reason-text {
       margin-top: 10px;
       padding: 24px;
@@ -145,24 +142,16 @@
       transform: translateY(0);
     }
 
-    /* Animation pulse sur le texte révélé */
     .reason-text.pulse {
       animation: gentlePulse 0.6s ease-out;
     }
 
     @keyframes gentlePulse {
-      0% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(0) scale(1.02);
-      }
-      100% {
-        transform: translateY(0) scale(1);
-      }
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(0) scale(1.02); }
+      100% { transform: translateY(0) scale(1); }
     }
 
-    /* Effet de brillance */
     .reason-text::after {
       content: '';
       position: absolute;
@@ -170,12 +159,7 @@
       left: -100%;
       width: 50%;
       height: 200%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transform: skewX(-20deg);
       opacity: 0;
     }
@@ -185,23 +169,45 @@
     }
 
     @keyframes shine {
-      0% {
-        left: -100%;
-        opacity: 0;
-      }
-      20% {
-        opacity: 1;
-      }
-      100% {
-        left: 150%;
-        opacity: 0;
-      }
+      0% { left: -100%; opacity: 0; }
+      20% { opacity: 1; }
+      100% { left: 150%; opacity: 0; }
     }
 
     .highlight {
       color: #FF6F61;
       font-weight: bold;
       display: block;
+    }
+
+    /* Bouton final */
+    .final-button-container {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .final-button-container.show {
+      opacity: 1;
+    }
+
+    .final-button {
+      background-color: #FF6F61;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 14px;
+      padding: 24px 48px;
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .final-button:hover {
+      background-color: #FF897B;
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -297,6 +303,11 @@
       </div>
 
     </div>
+
+    <!-- Bouton final qui apparaît après les 10 raisons -->
+    <div class="final-button-container" id="final-button-container">
+      <button class="final-button" onclick="location.href='invitation.html'">Et maintenant...</button>
+    </div>
   </div>
 
   <script>
@@ -313,11 +324,27 @@
 
     // Logique des boutons
     const buttons = document.querySelectorAll('.reason-button');
+    let revealedCount = 0;
 
     function updateHint() {
       buttons.forEach(b => b.classList.remove('hint'));
       const next = Array.from(buttons).find(b => b.style.display !== 'none');
       if (next) next.classList.add('hint');
+    }
+
+    function checkAllRevealed() {
+      if (revealedCount === 10) {
+        const finalButton = document.getElementById('final-button-container');
+        finalButton.classList.add('show');
+        
+        // Scroll vers le bouton final
+        setTimeout(() => {
+          finalButton.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }, 300);
+      }
     }
 
     // Clic sur bouton pour révéler le texte
@@ -331,6 +358,7 @@
         setTimeout(() => {
           button.style.display = 'none';
           text.classList.add('visible');
+          revealedCount++;
           
           // Ajouter l'effet pulse
           text.classList.add('pulse');
@@ -349,6 +377,7 @@
           }, 100);
           
           updateHint();
+          checkAllRevealed();
         }, 300);
       });
       
@@ -356,6 +385,7 @@
       text.addEventListener('click', (e) => {
         e.stopPropagation();
         text.classList.remove('visible');
+        revealedCount--;
         
         // Réafficher le bouton immédiatement
         button.style.display = 'block';
