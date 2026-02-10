@@ -181,34 +181,35 @@
     }
 
     /* Bouton final */
-    .final-button-container {
-      margin-top: 80px;
-      display: flex;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
+    /* Bouton final */
+.final-button-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: flex-start; /* Aligné à gauche au lieu de center */
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 
-    .final-button-container.show {
-      opacity: 1;
-    }
+.final-button-container.show {
+  opacity: 1;
+}
 
-    .final-button {
-      background-color: #FF6F61;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 14px;
-      padding: 24px 48px;
-      font-size: clamp(20px, 5vw, 26px);
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+.final-button {
+  background-color: #FF6F61;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 32px; /* Même padding que les boutons raison */
+  font-size: 24px; /* Même taille que les boutons raison */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .final-button:hover {
-      background-color: #FF897B;
-      transform: translateY(-2px);
-    }
+.final-button:hover {
+  background-color: #FF897B;
+  transform: translateY(-2px);
+}
   </style>
 </head>
 
