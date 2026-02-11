@@ -147,6 +147,25 @@
       font-size: clamp(20px, 4.5vw, 26px);
       color: #FF6F61;
       margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* Spinner de chargement */
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 111, 97, 0.3);
+      border-radius: 50%;
+      border-top-color: #FF6F61;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .loading-gif {
@@ -241,7 +260,10 @@
 
     <!-- Page de chargement (Non) -->
     <div class="loading-container" id="loading-container">
-      <div class="loading-text">Chargement en cours...</div>
+      <div class="loading-text">
+        <span class="spinner"></span>
+        Chargement en cours...
+      </div>
       <img src="non.gif" alt="Chargement" class="loading-gif">
     </div>
 
