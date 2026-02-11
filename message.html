@@ -58,7 +58,7 @@
     }
 
     .intro {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 50px;
       text-align: left;
       line-height: 1.6;
@@ -182,22 +182,23 @@
 
     /* Texte final */
     .final-text {
-  margin-top: 80px;
-  text-align: left;
-  font-size: 20px;
-  line-height: 1.6;
-  color: #FF6F61;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 1s ease, transform 1s ease;
-  display: none; /* Ajoute cette ligne */
-}
+      margin-top: 0;
+      text-align: left;
+      font-size: 20px;
+      line-height: 1.6;
+      color: #FF6F61;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 1s ease, transform 1s ease, margin-top 1s ease;
+      display: none;
+    }
 
-.final-text.show {
-  opacity: 1;
-  transform: translateY(0);
-  display: block; /* Ajoute cette ligne */
-}
+    .final-text.show {
+      opacity: 1;
+      transform: translateY(0);
+      display: block;
+      margin-top: 80px;
+    }
 
     .final-text.pulse {
       animation: gentlePulse 0.6s ease-out;
@@ -328,10 +329,10 @@
     </div>
 
     <!-- Texte final qui apparaît après la raison 10 -->
-<div class="final-text" id="final-text">
-  <span class="highlight">J'aime la personne que tu es.</span>
-  J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
-</div>
+    <div class="final-text" id="final-text">
+      <span class="highlight">J'aime la personne que tu es.</span>
+      J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
+    </div>
 
     <!-- Bouton final qui apparaît en même temps -->
     <div class="final-button-container" id="final-button-container">
@@ -346,19 +347,34 @@
       const intro = document.getElementById('intro');
       const reasons = document.getElementById('reasons');
 
-      setTimeout(() => { header.style.opacity = '1'; }, 200);
-      setTimeout(() => { intro.style.opacity = '1'; }, 500);
-      setTimeout(() => { reasons.style.opacity = '1'; }, 800);
+      setTimeout(() => { header.style.opacity = '1'; }, 50);
+      setTimeout(() => { intro.style.opacity = '1'; }, 300);
+      setTimeout(() => { reasons.style.opacity = '1'; }, 300);
     });
 
     // Logique des boutons
     const buttons = document.querySelectorAll('.reason-button');
     let revealedCount = 0;
+    let hintTimeout = null;
 
     function updateHint() {
+      // Retirer l'animation hint de tous les boutons
       buttons.forEach(b => b.classList.remove('hint'));
+      
+      // Annuler le timeout précédent s'il existe
+      if (hintTimeout) {
+        clearTimeout(hintTimeout);
+      }
+      
+      // Trouver le prochain bouton non révélé
       const next = Array.from(buttons).find(b => b.style.display !== 'none');
-      if (next) next.classList.add('hint');
+      
+      // Ajouter l'animation hint après 6 secondes
+      if (next) {
+        hintTimeout = setTimeout(() => {
+          next.classList.add('hint');
+        }, 6000);
+      }
     }
 
     function checkAllRevealed() {
@@ -366,7 +382,7 @@
         const finalText = document.getElementById('final-text');
         const finalButton = document.getElementById('final-button-container');
         
-        // Attendre 3 secondes après la révélation de la raison 10
+        // Attendre 1.5 secondes après la révélation de la raison 10
         setTimeout(() => {
           // Afficher le texte final avec pulse
           finalText.classList.add('show');
@@ -383,7 +399,7 @@
               block: 'center' 
             });
           }, 300);
-        }, 3000);
+        }, 1500);
       }
     }
 
@@ -419,20 +435,6 @@
           updateHint();
           checkAllRevealed();
         }, 300);
-      });
-      
-      // Clic sur texte pour le re-cacher
-      text.addEventListener('click', (e) => {
-        e.stopPropagation();
-        text.classList.remove('visible');
-        revealedCount--;
-        
-        // Réafficher le bouton immédiatement
-        button.style.display = 'block';
-        setTimeout(() => {
-          button.style.opacity = 1;
-          updateHint();
-        }, 50);
       });
     });
 
