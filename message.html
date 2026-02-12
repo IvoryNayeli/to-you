@@ -213,7 +213,6 @@
       transition: opacity 0.45s ease, transform 0.45s ease;
       display: none;
       position: relative;
-      overflow: hidden;
     }
 
     .final-text.visible {
@@ -224,22 +223,6 @@
 
     .final-text.pulse {
       animation: gentlePulse 0.6s ease-out;
-    }
-
-    .final-text::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -100%;
-      width: 50%;
-      height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transform: skewX(-20deg);
-      opacity: 0;
-    }
-
-    .final-text.shine::after {
-      animation: shine 1s ease-out;
     }
 
     .final-text .highlight {
@@ -263,6 +246,7 @@
       display: none;
       opacity: 0;
       font-family: 'Montserrat', sans-serif;
+      align-self: flex-start;
     }
 
     .final-button.show {
@@ -381,7 +365,7 @@
         J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
         
         <!-- Bouton intégré dans le bloc rose -->
-        <button class="final-button" id="final-button" onclick="location.href='invitation.html'">→</button>
+        <button class="final-button" id="final-button" onclick="location.href='invitation.html'">Et maintenant ...</button>
       </div>
     </div>
   </div>
@@ -492,9 +476,7 @@
         finalText.classList.add('pulse');
         setTimeout(() => finalText.classList.remove('pulse'), 600);
         
-        // Ajouter l'effet de brillance
-        finalText.classList.add('shine');
-        setTimeout(() => finalText.classList.remove('shine'), 1000);
+        // PAS d'effet de brillance
         
         // Scroll automatique vers le texte final
         setTimeout(() => {
@@ -504,7 +486,7 @@
           });
         }, 100);
         
-        // Afficher le bouton flèche intégré après 1 seconde
+        // Afficher le bouton "Et maintenant..." après 1 seconde
         setTimeout(() => {
           finalButton.classList.add('show');
         }, 1000);
