@@ -29,7 +29,6 @@
       100% { background-position: 0% 0%; }
     }
 
-    /* Calque confettis */
     #confetti-bg {
       position: fixed;
       top: 0; left: 0;
@@ -128,13 +127,13 @@
       to { opacity: 1; }
     }
 
-    /* Page de chargement (Non) */
     .loading-container {
       display: none;
       flex-direction: column;
       align-items: center;
       margin-top: 30px;
       text-align: center;
+      width: 100%;
     }
 
     .loading-container.show {
@@ -142,18 +141,12 @@
       animation: fadeIn 0.5s ease forwards;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
     .loading-gif {
       width: 100%;
       max-width: 400px;
       border-radius: 16px;
-      margin-bottom: 30px;
     }
 
-    /* Formulaire refus */
     .refusal-form {
       display: none;
       flex-direction: column;
@@ -189,39 +182,39 @@
       border-color: #FF897B;
     }
 
-    .admin-message {
+    .result-container {
       display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
       margin-top: 30px;
-      text-align: center;
-      font-size: clamp(18px, 4vw, 22px);
-      color: #333333;
-      line-height: 1.6;
+    }
+
+    .result-container.show {
+      display: flex;
       animation: fadeIn 0.8s ease forwards;
     }
 
-    .admin-message.show {
-      display: block;
+    .admin-message {
+      text-align: left;
+      font-size: clamp(18px, 4vw, 22px);
+      color: #333333;
+      line-height: 1.6;
+      margin-bottom: 10px;
     }
 
     .admin-message .highlight {
       color: #FF6F61;
       font-weight: bold;
+      display: block;
     }
 
     .patience-gif {
       width: 100%;
       max-width: 400px;
       border-radius: 16px;
-      margin-top: 30px;
-      display: none;
     }
 
-    .patience-gif.show {
-      display: block;
-      animation: fadeIn 0.8s ease forwards;
-    }
-
-    /* Confettis */
     .confetti {
       position: absolute;
       width: 8px;
@@ -242,7 +235,6 @@
 </head>
 <body>
 
-  <!-- Calque confettis -->
   <div id="confetti-bg"></div>
 
   <div class="message">
@@ -253,12 +245,10 @@
       <button class="button" id="no-button">Non</button>
     </div>
 
-    <!-- Page de chargement (Non) -->
     <div class="loading-container" id="loading-container">
-      <img src="non.gif" alt="Chargement" class="loading-gif" id="loading-gif">
+      <img src="non.gif" alt="Chargement" class="loading-gif">
     </div>
 
-    <!-- Formulaire de refus -->
     <div class="refusal-form" id="refusal-form">
       <div class="refusal-label">
         Merci de justifier la raison de ce refus :
@@ -267,17 +257,15 @@
       <button class="button" id="submit-refusal">Envoyer</button>
     </div>
 
-    <!-- Message admin -->
-    <div class="admin-message" id="admin-message">
-      La réponse a bien été <span class="highlight">enregistrée</span>.<br>
-      Elle sera traitée dans un délai estimé de <span class="highlight">quelques minutes</span>.<br>
-      Merci de ta patience.
+    <div class="result-container" id="result-container">
+      <div class="admin-message">
+        <span class="highlight">La réponse a bien été enregistrée.</span>
+        Elle sera traitée dans un délai estimé de <span style="color: #FF6F61; font-weight: bold;">quelques minutes</span>.<br>
+        Merci de ta patience.
+      </div>
+      <img src="patience.gif" alt="Patience" class="patience-gif">
     </div>
 
-    <!-- GIF patience -->
-    <img src="patience.gif" alt="Patience" class="patience-gif" id="patience-gif">
-
-    <!-- Succès (Oui) -->
     <div class="success-container" id="success-container">
       <div class="success-text">J'ai hâte de te retrouver ! &hearts;</div>
       <img src="oui.gif" alt="Joie" class="success-gif">
@@ -291,21 +279,17 @@
   const noButton = document.getElementById('no-button');
   const successContainer = document.getElementById('success-container');
   const loadingContainer = document.getElementById('loading-container');
-  const loadingGif = document.getElementById('loading-gif');
   const refusalForm = document.getElementById('refusal-form');
   const submitRefusal = document.getElementById('submit-refusal');
   const refusalMessage = document.getElementById('refusal-message');
-  const adminMessage = document.getElementById('admin-message');
-  const patienceGif = document.getElementById('patience-gif');
+  const resultContainer = document.getElementById('result-container');
   const bg = document.getElementById('confetti-bg');
 
-  // Délais calqués sur password.html
   window.addEventListener('load', () => {
     setTimeout(() => header.style.opacity = '1', 50);
     setTimeout(() => buttonsContainer.style.opacity = '1', 300);
   });
 
-  // Fonction confettis
   function launchConfetti() {
     const confettiCount = 50;
     for (let i = 0; i < confettiCount; i++) {
@@ -320,7 +304,6 @@
     }
   }
 
-  // OUI
   yesButton.addEventListener('click', async () => {
     try {
       await fetch('https://formspree.io/f/mgolowgj', {
@@ -332,21 +315,21 @@
       console.log(error);
     }
 
-    // Lancer les confettis
     launchConfetti();
-
     buttonsContainer.style.display = 'none';
     successContainer.classList.add('show');
   });
 
-  // NON - Afficher directement le GIF + formulaire
-noButton.addEventListener('click', () => {
-  buttonsContainer.style.display = 'none';
-  loadingContainer.classList.add('show');
-  refusalForm.classList.add('show');
-});
+  noButton.addEventListener('click', () => {
+    buttonsContainer.style.display = 'none';
+    loadingContainer.classList.add('show');
 
-  // Envoi refus
+    setTimeout(() => {
+      loadingContainer.style.display = 'none';
+      refusalForm.classList.add('show');
+    }, 3000);
+  });
+
   submitRefusal.addEventListener('click', async () => {
     if (!refusalMessage.value.trim()) return;
 
@@ -362,13 +345,8 @@ noButton.addEventListener('click', () => {
       console.log(error);
     }
 
-    // Masquer le GIF de chargement et le formulaire
-    loadingContainer.style.display = 'none';
     refusalForm.style.display = 'none';
-    
-    // Afficher le message admin et le GIF patience
-    adminMessage.classList.add('show');
-    patienceGif.classList.add('show');
+    resultContainer.classList.add('show');
   });
 </script>
 
