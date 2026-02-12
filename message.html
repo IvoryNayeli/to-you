@@ -180,9 +180,26 @@
       display: block;
     }
 
+    /* Bouton conclusion */
+    .conclusion-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 80px;
+      margin-bottom: 10px;
+      position: relative;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .conclusion-block.show {
+      opacity: 1;
+    }
+
     /* Texte final */
     .final-text {
-      margin-top: 0;
+      margin-top: 10px;
       text-align: left;
       font-size: 20px;
       line-height: 1.6;
@@ -193,19 +210,36 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
       opacity: 0;
       transform: translateY(12px);
-      transition: opacity 1s ease, transform 1s ease, margin-top 1s ease;
+      transition: opacity 0.45s ease, transform 0.45s ease;
       display: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .final-text.show {
+    .final-text.visible {
+      display: block;
       opacity: 1;
       transform: translateY(0);
-      display: block;
-      margin-top: 80px;
     }
 
     .final-text.pulse {
       animation: gentlePulse 0.6s ease-out;
+    }
+
+    .final-text::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: skewX(-20deg);
+      opacity: 0;
+    }
+
+    .final-text.shine::after {
+      animation: shine 1s ease-out;
     }
 
     .final-text .highlight {
@@ -338,13 +372,16 @@
 
     </div>
 
-    <!-- Texte final qui apparaît après la raison 10 -->
-    <div class="final-text" id="final-text">
-      <span class="highlight">J'aime la personne que tu es.</span>
-      J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
+    <!-- Bouton Conclusion qui apparaît après les 10 raisons -->
+    <div class="conclusion-block" id="conclusion-block">
+      <button class="reason-button" id="conclusion-button">Conclusion</button>
+      <div class="final-text" id="final-text">
+        <span class="highlight">J'aime la personne que tu es.</span>
+        J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
+      </div>
     </div>
 
-    <!-- Bouton final qui apparaît en même temps -->
+    <!-- Bouton final qui apparaît après la conclusion -->
     <div class="final-button-container" id="final-button-container">
       <button class="final-button" onclick="location.href='invitation.html'">Et maintenant ...</button>
     </div>
@@ -363,7 +400,11 @@
     });
 
     // Logique des boutons
-    const buttons = document.querySelectorAll('.reason-button');
+    const buttons = document.querySelectorAll('.reason-button:not(#conclusion-button)');
+    const conclusionButton = document.getElementById('conclusion-button');
+    const conclusionBlock = document.getElementById('conclusion-block');
+    const finalText = document.getElementById('final-text');
+    const finalButtonContainer = document.getElementById('final-button-container');
     let revealedCount = 0;
     let hintTimeout = null;
 
@@ -389,22 +430,13 @@
 
     function checkAllRevealed() {
       if (revealedCount === 10) {
-        const finalText = document.getElementById('final-text');
-        const finalButton = document.getElementById('final-button-container');
-        
-        // Attendre 1.5 secondes après la révélation de la raison 10
+        // Afficher le bouton Conclusion après 1.5 secondes
         setTimeout(() => {
-          // Afficher le texte final avec pulse
-          finalText.classList.add('show');
-          finalText.classList.add('pulse');
-          setTimeout(() => finalText.classList.remove('pulse'), 600);
+          conclusionBlock.classList.add('show');
           
-          // Afficher le bouton en même temps
-          finalButton.classList.add('show');
-          
-          // Scroll vers le texte final
+          // Scroll vers le bouton conclusion
           setTimeout(() => {
-            finalText.scrollIntoView({ 
+            conclusionBlock.scrollIntoView({ 
               behavior: 'smooth', 
               block: 'center' 
             });
@@ -446,6 +478,38 @@
           checkAllRevealed();
         }, 300);
       });
+    });
+
+    // Clic sur bouton Conclusion
+    conclusionButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      conclusionButton.style.opacity = 0;
+      setTimeout(() => {
+        conclusionButton.style.display = 'none';
+        finalText.classList.add('visible');
+        
+        // Ajouter l'effet pulse
+        finalText.classList.add('pulse');
+        setTimeout(() => finalText.classList.remove('pulse'), 600);
+        
+        // Ajouter l'effet de brillance
+        finalText.classList.add('shine');
+        setTimeout(() => finalText.classList.remove('shine'), 1000);
+        
+        // Scroll automatique vers le texte final
+        setTimeout(() => {
+          finalText.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }, 100);
+        
+        // Afficher le bouton "Et maintenant..." après révélation
+        setTimeout(() => {
+          finalButtonContainer.classList.add('show');
+        }, 1000);
+      }, 300);
     });
 
     updateHint();
