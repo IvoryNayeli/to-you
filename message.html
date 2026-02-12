@@ -187,7 +187,7 @@
       flex-direction: column;
       align-items: stretch;
       margin-top: 80px;
-      margin-bottom: 10px;
+      margin-bottom: 0;
       position: relative;
       opacity: 0;
       transition: opacity 1s ease;
@@ -248,22 +248,10 @@
       display: block;
     }
 
-    /* Bouton final */
-    .final-button-container {
-      margin-top: 60px;
-      display: flex;
-      justify-content: flex-end;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-
-    .final-button-container.show {
-      opacity: 1;
-    }
-
+    /* Bouton intégré dans le bloc rose */
     .final-button {
-      background-color: #FF6F61;
-      color: #FFFFFF;
+      background-color: #FFFFFF;
+      color: #FF6F61;
       border: none;
       border-radius: 14px;
       padding: 16px 32px;
@@ -271,10 +259,23 @@
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 20px;
+      display: none;
+      opacity: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .final-button.show {
+      display: block;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     .final-button:hover {
-      background-color: #FF897B;
+      background-color: #FFF8F2;
       transform: translateY(-2px);
     }
   </style>
@@ -376,14 +377,12 @@
     <div class="conclusion-block" id="conclusion-block">
       <button class="reason-button" id="conclusion-button">Conclusion</button>
       <div class="final-text" id="final-text">
-        <span class="highlight">J'aime la personne que tu es.</span>
+        <span class="highlight">Je t'aime.</span>
         J'aime tout ce qui se tient derrière tes gestes, tes mots, tes silences. Je t'aime toi, sans condition, sans liste, pour tout ce que tu es. &hearts;
+        
+        <!-- Bouton intégré dans le bloc rose -->
+        <button class="final-button" id="final-button" onclick="location.href='invitation.html'">→</button>
       </div>
-    </div>
-
-    <!-- Bouton final qui apparaît après la conclusion -->
-    <div class="final-button-container" id="final-button-container">
-      <button class="final-button" onclick="location.href='invitation.html'">Et maintenant ...</button>
     </div>
   </div>
 
@@ -404,7 +403,7 @@
     const conclusionButton = document.getElementById('conclusion-button');
     const conclusionBlock = document.getElementById('conclusion-block');
     const finalText = document.getElementById('final-text');
-    const finalButtonContainer = document.getElementById('final-button-container');
+    const finalButton = document.getElementById('final-button');
     let revealedCount = 0;
     let hintTimeout = null;
 
@@ -505,9 +504,9 @@
           });
         }, 100);
         
-        // Afficher le bouton "Et maintenant..." après révélation
+        // Afficher le bouton flèche intégré après 1 seconde
         setTimeout(() => {
-          finalButtonContainer.classList.add('show');
+          finalButton.classList.add('show');
         }, 1000);
       }, 300);
     });
