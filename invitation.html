@@ -151,6 +151,12 @@
       align-items: center;
       gap: 12px;
       justify-content: center;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-text.hide {
+      opacity: 0;
     }
 
     /* Spinner de chargement */
@@ -172,6 +178,7 @@
       width: 100%;
       max-width: 400px;
       border-radius: 16px;
+      margin-bottom: 30px;
     }
 
     /* Formulaire refus */
@@ -179,7 +186,6 @@
       display: none;
       flex-direction: column;
       gap: 20px;
-      margin-top: 30px;
       width: 100%;
       animation: fadeIn 0.5s ease forwards;
     }
@@ -215,15 +221,32 @@
       display: none;
       margin-top: 30px;
       text-align: center;
-      font-weight: bold;
-      font-size: clamp(20px, 4.5vw, 26px);
-      color: #FF6F61;
+      font-size: clamp(18px, 4vw, 22px);
+      color: #333333;
       line-height: 1.6;
       animation: fadeIn 0.8s ease forwards;
     }
 
     .admin-message.show {
       display: block;
+    }
+
+    .admin-message .highlight {
+      color: #FF6F61;
+      font-weight: bold;
+    }
+
+    .patience-gif {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 16px;
+      margin-top: 30px;
+      display: none;
+    }
+
+    .patience-gif.show {
+      display: block;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     /* Confettis */
@@ -260,11 +283,11 @@
 
     <!-- Page de chargement (Non) -->
     <div class="loading-container" id="loading-container">
-      <div class="loading-text">
+      <div class="loading-text" id="loading-text">
         <span class="spinner"></span>
-        Chargement en cours ...
+        Chargement en cours...
       </div>
-      <img src="non.gif" alt="Chargement" class="loading-gif">
+      <img src="non.gif" alt="Chargement" class="loading-gif" id="loading-gif">
     </div>
 
     <!-- Formulaire de refus -->
@@ -278,10 +301,13 @@
 
     <!-- Message admin -->
     <div class="admin-message" id="admin-message">
-      La réponse a bien été enregistrée.<br>
-      Elle sera traitée dans un délai estimé de quelques minutes.<br>
+      La réponse a bien été <span class="highlight">enregistrée</span>.<br>
+      Elle sera traitée dans un délai estimé de <span class="highlight">quelques minutes</span>.<br>
       Merci de ta patience.
     </div>
+
+    <!-- GIF patience -->
+    <img src="patience.gif" alt="Patience" class="patience-gif" id="patience-gif">
 
     <!-- Succès (Oui) -->
     <div class="success-container" id="success-container">
@@ -297,15 +323,19 @@
   const noButton = document.getElementById('no-button');
   const successContainer = document.getElementById('success-container');
   const loadingContainer = document.getElementById('loading-container');
+  const loadingText = document.getElementById('loading-text');
+  const loadingGif = document.getElementById('loading-gif');
   const refusalForm = document.getElementById('refusal-form');
   const submitRefusal = document.getElementById('submit-refusal');
   const refusalMessage = document.getElementById('refusal-message');
   const adminMessage = document.getElementById('admin-message');
+  const patienceGif = document.getElementById('patience-gif');
   const bg = document.getElementById('confetti-bg');
 
+  // Délais calqués sur password.html
   window.addEventListener('load', () => {
-    setTimeout(() => header.style.opacity = '1', 200);
-    setTimeout(() => buttonsContainer.style.opacity = '1', 600);
+    setTimeout(() => header.style.opacity = '1', 50);
+    setTimeout(() => buttonsContainer.style.opacity = '1', 300);
   });
 
   // Fonction confettis
@@ -347,11 +377,15 @@
     buttonsContainer.style.display = 'none';
     loadingContainer.classList.add('show');
 
-    // Après 3 secondes, afficher le formulaire
+    // Après 4 secondes (3+1), masquer le texte de chargement
     setTimeout(() => {
-      loadingContainer.style.display = 'none';
-      refusalForm.classList.add('show');
-    }, 3000);
+      loadingText.classList.add('hide');
+      
+      // Puis afficher le formulaire sous le GIF
+      setTimeout(() => {
+        refusalForm.classList.add('show');
+      }, 300);
+    }, 4000);
   });
 
   // Envoi refus
@@ -370,8 +404,13 @@
       console.log(error);
     }
 
+    // Masquer le GIF de chargement et le formulaire
+    loadingContainer.style.display = 'none';
     refusalForm.style.display = 'none';
+    
+    // Afficher le message admin et le GIF patience
     adminMessage.classList.add('show');
+    patienceGif.classList.add('show');
   });
 </script>
 
