@@ -40,11 +40,13 @@
 
     .shell {
       width: min(980px, 100%);
+      max-height: calc(100dvh - 32px);
       border-radius: 30px;
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid var(--line);
       box-shadow: var(--card-shadow);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       backdrop-filter: blur(8px);
     }
 
