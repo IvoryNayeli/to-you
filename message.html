@@ -6,38 +6,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-1: #09111d;
+      --bg-2: #1a2233;
+      --bg-3: #301e2f;
+      --card: #f9f6f1;
+      --text: #2a2230;
+      --accent: #ff6f61;
+      --accent-2: #ff8f7b;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: grid;
+      place-items: center;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #FAF5F0, #FFF1E6, #FAF5F0, #FFF8F2);
-      background-size: 800% 800%;
-      animation: gradientMove 30s ease infinite;
-      color: #333333;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 143, 123, 0.22), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(255, 111, 97, 0.2), transparent 35%),
+        linear-gradient(140deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+      color: var(--text);
       overflow-x: hidden;
       position: relative;
-      padding: 20px;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 0%; }
-      25% { background-position: 50% 50%; }
-      50% { background-position: 100% 0%; }
-      75% { background-position: 50% 50%; }
-      100% { background-position: 0% 0%; }
+      padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
     }
 
     .container {
-      background-color: #FFFFFF;
-      border-radius: 24px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      width: 70%;
-      max-width: 600px;
-      min-width: 280px;
-      padding: 100px 60px 60px 60px;
+      background: linear-gradient(165deg, #fffaf5, var(--card));
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      width: min(820px, 100%);
+      padding: clamp(26px, 6vw, 56px);
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -45,35 +49,50 @@
       overflow: visible;
     }
 
+    .container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 111, 97, 0.08), rgba(255, 143, 123, 0.02) 36%, transparent 70%);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
     h1 {
-      margin: 0 0 60px;
-      text-align: center;
-      font-size: clamp(38px, 6vw, 48px);
+      margin: 0 0 30px;
+      text-align: left;
+      font-size: clamp(32px, 6vw, 52px);
       font-weight: 700;
-      color: #FF6F61;
+      color: var(--accent);
       line-height: 1.2;
       word-wrap: break-word;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .intro {
-      font-size: clamp(20px, 4.5vw, 26px);
-      margin-bottom: 50px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      margin-bottom: 22px;
       text-align: left;
       line-height: 1.6;
-      color: #333333;
+      color: var(--text);
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .reasons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 10px;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .reason-block {
@@ -81,28 +100,29 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       position: relative;
     }
 
     .reason-button {
       width: 100%;
-      padding: 16px 32px;
-      border-radius: 14px;
+      padding: 14px 20px;
+      border-radius: 16px;
       border: none;
-      background: #FF6F61;
-      color: #FFFFFF;
-      font-size: 24px;
+      background: linear-gradient(160deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-size: clamp(17px, 4.3vw, 22px);
       font-weight: bold;
       font-family: 'Montserrat', sans-serif;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+      box-shadow: 0 12px 20px rgba(255, 111, 97, 0.25);
+      transition: transform 0.2s ease, opacity 0.3s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .reason-button:hover {
-      background-color: #FF897B;
       transform: translateY(-2px);
+      filter: brightness(1.04);
+      box-shadow: 0 14px 24px rgba(255, 111, 97, 0.32);
     }
 
     @keyframes hintShake {
@@ -119,14 +139,14 @@
 
     .reason-text {
       margin-top: 10px;
-      padding: 24px;
-      background: #FFFFFF;
-      border-radius: 24px;
-      border: 1px solid #FF6F61;
-      font-size: 20px;
+      padding: clamp(16px, 3.5vw, 24px);
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 111, 97, 0.4);
+      font-size: clamp(17px, 3.7vw, 20px);
       line-height: 1.6;
-      color: #333333;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      color: var(--text);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
       opacity: 0;
       transform: translateY(12px);
       transition: opacity 0.45s ease, transform 0.45s ease;
@@ -175,7 +195,7 @@
     }
 
     .highlight {
-      color: #FF6F61;
+      color: var(--accent);
       font-weight: bold;
       display: block;
     }
@@ -194,32 +214,31 @@
 
     .conclusion-block.show {
       opacity: 1;
-      margin-top: 80px;
+      margin-top: 36px;
     }
 
     .final-text {
-  margin-top: 10px;
-  text-align: left;
-  font-size: 20px;
-  line-height: 1.6;
-  padding: 24px;
-  background: #FF6F61;
-  color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-  display: none;
-  position: relative;
-}
-
+      margin-top: 10px;
+      text-align: left;
+      font-size: clamp(17px, 3.7vw, 20px);
+      line-height: 1.6;
+      padding: clamp(16px, 3.5vw, 24px);
+      background: linear-gradient(160deg, var(--accent), var(--accent-2));
+      color: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      display: none;
+      position: relative;
+    }
 
     .final-text.visible {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
 
     .final-text.pulse {
@@ -233,34 +252,36 @@
     }
 
     .final-button {
-  background-color: #FFFFFF;
-  color: #FF6F61;
-  border: none;
-  border-radius: 14px;
-  padding: 16px 32px;
-  font-size: 20px;
-  font-weight: 400;
-  font-family: 'Montserrat', sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, opacity 1s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      background-color: #FFFFFF;
+      color: var(--accent);
+      border: none;
+      border-radius: 14px;
+      padding: 12px 22px;
+      min-height: 50px;
+      font-size: clamp(16px, 3.8vw, 19px);
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, opacity 1s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      display: block;
+      margin-left: auto;
+      margin-top: 18px;
+      width: fit-content;
+      opacity: 0;
+    }
 
-  display: block;
-  margin-left: auto;
-  margin-top: 20px;
-  width: fit-content;
-
-  opacity: 0;
-}
-
-.final-button.show {
-  opacity: 1;
-}
+    .final-button.show { opacity: 1; }
 
 
     .final-button:hover {
       background-color: #FFF8F2;
       transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
+      h1 { text-align: center; }
+      .final-button { width: 100%; }
     }
   </style>
 </head>
