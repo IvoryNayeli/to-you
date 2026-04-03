@@ -77,8 +77,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(24px, 6vw, 52px) clamp(18px, 4vw, 32px);
-      gap: clamp(20px, 4vw, 36px);
+      padding: clamp(16px, 4vw, 36px) clamp(18px, 4vw, 32px);
+      gap: clamp(10px, 2.5vw, 20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
@@ -345,8 +345,8 @@
             <!-- edge highlight on front face -->
             <line x1="30" y1="148" x2="30" y2="218" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
 
-            <!-- ── INNER WALLS (visible when lid lifts) ── -->
-            <g id="inner-walls" style="opacity:0; transition: opacity 0.45s ease 0.15s;">
+            <!-- ── INNER WALLS (visible when lid lifts; hidden behind lid via SVG order) ── -->
+            <g id="inner-walls">
               <!-- inside top opening surface -->
               <polygon points="30,148 54,134 178,134 154,148" fill="#8A6070" opacity="0.55"/>
               <!-- front inner rim -->
@@ -437,9 +437,9 @@
           if (opened) { clearInterval(wiggleInterval); return; }
           giftBoxBtn.classList.add('wiggling');
           setTimeout(() => giftBoxBtn.classList.remove('wiggling'), 600);
-        }, 3200);
+        }, 1800);
       }
-      setTimeout(startWiggle, 1600);
+      setTimeout(startWiggle, 800);
 
       giftBoxBtn.addEventListener('click', () => {
         if (opened) return;
@@ -448,8 +448,6 @@
 
         // lid lifts up
         svgLidGroup.classList.add('open');
-        // reveal inner walls
-        innerWalls.style.opacity = '1';
 
         // confetti burst from top of box
         setTimeout(() => {
