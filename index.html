@@ -4,16 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To you</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f5f1ea;
-      --paper-deep: #ece6dc;
-      --ink: #121212;
-      --muted: #5f5f5f;
-      --accent: #d62158;
-      --line: #181818;
-      --shadow: 18px 18px 0 rgba(0, 0, 0, 0.08);
+      --c1: #423D61;
+      --c2: #8DA1C1;
+      --c3: #B6BDD0;
+      --c4: #D5D3DB;
+      --c5: #F1DBD6;
+      --white: #FFFFFF;
+      --ink: #2f2a4f;
+      --muted: #5c5a74;
+      --line: rgba(66, 61, 97, 0.16);
+      --card-shadow: 0 22px 50px rgba(66, 61, 97, 0.18);
+      --radius-lg: 24px;
+      --radius-md: 16px;
     }
 
     * { box-sizing: border-box; }
@@ -21,79 +26,68 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Outfit', sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 20% 12%, rgba(214, 33, 88, 0.07), transparent 34%),
-        radial-gradient(circle at 80% 84%, rgba(0, 0, 0, 0.05), transparent 38%),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.03) 0,
-          rgba(0, 0, 0, 0.03) 1px,
-          transparent 1px,
-          transparent 24px
-        ),
-        linear-gradient(180deg, var(--paper), var(--paper-deep));
-      padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        radial-gradient(circle at 12% 10%, rgba(141, 161, 193, 0.38), transparent 30%),
+        radial-gradient(circle at 88% 90%, rgba(241, 219, 214, 0.5), transparent 34%),
+        linear-gradient(145deg, var(--white) 0%, #f9faff 42%, #f7f4ff 100%);
+      padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
       display: grid;
       place-items: center;
       overflow-x: hidden;
     }
 
-    .page {
+    .shell {
       width: min(980px, 100%);
-      border: 2px solid var(--line);
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: var(--shadow);
-      position: relative;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
       overflow: hidden;
+      backdrop-filter: blur(8px);
     }
 
-    .issue {
-      position: absolute;
-      top: clamp(8px, 2vw, 18px);
-      right: clamp(10px, 3vw, 24px);
-      font-size: clamp(11px, 2.8vw, 14px);
-      letter-spacing: 0.18em;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 14px clamp(16px, 4vw, 28px);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(214, 211, 219, 0.55), rgba(255, 255, 255, 0.5));
+    }
+
+    .brand {
+      font-size: 12px;
       text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .issue strong {
-      color: var(--accent);
+      letter-spacing: 0.14em;
+      color: var(--c1);
       font-weight: 700;
     }
 
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(141, 161, 193, 0.2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
     .hero {
-      position: relative;
-      padding: clamp(26px, 6vw, 58px) clamp(18px, 5vw, 52px) clamp(24px, 5vw, 46px);
+      padding: clamp(22px, 5vw, 44px);
       display: grid;
       gap: clamp(14px, 2vw, 18px);
     }
 
-    .hero::before {
-      content: "TO YOU";
-      position: absolute;
-      top: clamp(72px, 15vw, 120px);
-      left: clamp(10px, 3vw, 28px);
-      font-size: clamp(74px, 17vw, 220px);
-      line-height: 0.8;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: rgba(0, 0, 0, 0.06);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .kicker,
-    .title,
-    .lead,
-    .cta-wrap {
+    .hero-kicker,
+    .hero-title,
+    .hero-text,
+    .hero-cta {
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 0.75s ease, transform 0.75s ease;
-      position: relative;
-      z-index: 1;
     }
 
     .show {
@@ -101,82 +95,81 @@
       transform: translateY(0);
     }
 
-    .kicker {
+    .hero-kicker {
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: clamp(11px, 2.5vw, 13px);
-      color: var(--muted);
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      color: var(--c2);
     }
 
-    .title {
+    .hero-title {
       margin: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 600;
-      font-size: clamp(48px, 13vw, 126px);
-      line-height: 0.88;
-      max-width: 8.2ch;
+      font-size: clamp(38px, 8.3vw, 76px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--c1);
+      max-width: 10ch;
+      font-weight: 800;
     }
 
-    .lead {
+    .hero-text {
       display: grid;
       gap: 10px;
       max-width: 66ch;
-      border-left: 3px solid var(--line);
-      padding-left: 14px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(213, 211, 219, 0.42));
     }
 
-    .lead p {
+    .hero-text p {
       margin: 0;
       font-size: clamp(18px, 3.8vw, 24px);
-      line-height: 1.5;
+      line-height: 1.56;
+      color: var(--ink);
     }
 
     .highlight-style,
     .highlight-pass {
-      color: var(--accent);
+      color: var(--c1);
       font-weight: 700;
     }
 
-    .cta-wrap {
-      padding-top: 8px;
+    .hero-cta {
       display: flex;
       justify-content: flex-end;
+      padding-top: 6px;
     }
 
     .button {
-      border: 2px solid var(--line);
-      background: #fff;
-      color: var(--ink);
+      border: 0;
+      border-radius: 14px;
       min-height: 52px;
       padding: 12px 24px;
       font-family: inherit;
-      font-size: clamp(16px, 3.8vw, 20px);
+      font-size: clamp(16px, 3.6vw, 20px);
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
       cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 6px 6px 0 #000;
+      color: var(--white);
+      background: linear-gradient(120deg, var(--c1), var(--c2));
+      box-shadow: 0 12px 22px rgba(66, 61, 97, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .button:hover {
-      transform: translate(-2px, -2px);
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 9px 9px 0 #000;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(66, 61, 97, 0.32);
+      filter: saturate(1.08);
     }
 
-    @media (max-width: 700px) {
-      .hero::before {
-        top: 112px;
+    @media (max-width: 680px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-      .lead {
-        padding-left: 10px;
-      }
-
-      .cta-wrap {
+      .hero-cta {
         justify-content: stretch;
       }
 
@@ -187,22 +180,25 @@
   </style>
 </head>
 <body>
-  <main class="page">
-    <div class="issue">ÉDITION <strong>01</strong></div>
+  <main class="shell">
+    <header class="topbar">
+      <span class="brand">To You · Private Edition</span>
+      <span class="tag">Étape 1 / 4</span>
+    </header>
 
     <section class="hero">
-      <div class="kicker" id="kicker">Confidentiel • Interface privée</div>
+      <div class="hero-kicker" id="kicker">Message personnel</div>
 
-      <h1 class="title" id="header">
+      <h1 class="hero-title" id="header">
         Aujourd'hui, j'ai un message pour toi &hearts;
       </h1>
 
-      <div class="lead" id="middle">
+      <div class="hero-text" id="middle">
         <p>Et parce que j'aime faire les choses <span class="highlight-style">avec style</span>, je mets mes compétences d'informaticienne à contribution pour te le transmettre.</p>
         <p>Pas d’inquiétude, tu n’auras pas besoin de compiler quoi que ce soit. Il te suffit simplement de deviner le <span class="highlight-pass">mot de passe</span> pour accéder au message.</p>
       </div>
 
-      <div class="cta-wrap" id="footer">
+      <div class="hero-cta" id="footer">
         <button class="button" onclick="location.href='password.html'">C'est parti !</button>
       </div>
     </section>
@@ -215,10 +211,10 @@
       const middle = document.getElementById('middle');
       const footer = document.getElementById('footer');
 
-      setTimeout(() => { kicker.classList.add('show'); }, 80);
-      setTimeout(() => { header.classList.add('show'); }, 220);
-      setTimeout(() => { middle.classList.add('show'); }, 420);
-      setTimeout(() => { footer.classList.add('show'); }, 620);
+      setTimeout(() => kicker.classList.add('show'), 80);
+      setTimeout(() => header.classList.add('show'), 250);
+      setTimeout(() => middle.classList.add('show'), 430);
+      setTimeout(() => footer.classList.add('show'), 620);
     });
   </script>
 </body>

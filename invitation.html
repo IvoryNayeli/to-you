@@ -4,16 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f5f1ea;
-      --paper-deep: #ece6dc;
-      --ink: #121212;
-      --muted: #5f5f5f;
-      --accent: #d62158;
-      --line: #181818;
-      --shadow: 18px 18px 0 rgba(0, 0, 0, 0.08);
+      --c1: #423D61;
+      --c2: #8DA1C1;
+      --c3: #B6BDD0;
+      --c4: #D5D3DB;
+      --c5: #F1DBD6;
+      --white: #FFFFFF;
+      --ink: #2f2a4f;
+      --muted: #5c5a74;
+      --line: rgba(66, 61, 97, 0.16);
+      --card-shadow: 0 22px 50px rgba(66, 61, 97, 0.18);
+      --radius-lg: 24px;
+      --radius-md: 16px;
     }
 
     * { box-sizing: border-box; }
@@ -21,20 +26,13 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Outfit', sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 20% 12%, rgba(214, 33, 88, 0.07), transparent 34%),
-        radial-gradient(circle at 80% 84%, rgba(0, 0, 0, 0.05), transparent 38%),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.03) 0,
-          rgba(0, 0, 0, 0.03) 1px,
-          transparent 1px,
-          transparent 24px
-        ),
-        linear-gradient(180deg, var(--paper), var(--paper-deep));
-      padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        radial-gradient(circle at 12% 10%, rgba(141, 161, 193, 0.38), transparent 30%),
+        radial-gradient(circle at 88% 90%, rgba(241, 219, 214, 0.5), transparent 34%),
+        linear-gradient(145deg, var(--white) 0%, #f9faff 42%, #f7f4ff 100%);
+      padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
       display: grid;
       place-items: center;
       overflow-x: hidden;
@@ -47,39 +45,57 @@
       z-index: 0;
     }
 
-    .page {
+    .shell {
       width: min(980px, 100%);
-      border: 2px solid var(--line);
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: var(--shadow);
-      position: relative;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
       overflow: hidden;
+      backdrop-filter: blur(8px);
+      position: relative;
       z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 14px clamp(16px, 4vw, 28px);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(182, 189, 208, 0.45), rgba(255, 255, 255, 0.5));
+    }
+
+    .brand {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--c1);
+      font-weight: 700;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(141, 161, 193, 0.2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .content {
       padding: clamp(20px, 5vw, 40px);
       display: grid;
       gap: 14px;
     }
 
-    .page::before {
-      content: "04";
-      position: absolute;
-      right: clamp(8px, 2vw, 16px);
-      top: clamp(10px, 2vw, 18px);
-      font-size: clamp(92px, 18vw, 240px);
-      line-height: 0.75;
-      color: rgba(0, 0, 0, 0.05);
-      font-weight: 700;
-      pointer-events: none;
-    }
-
-    .meta,
     .header,
-    .buttons-container {
+    .buttons-container,
+    .meta {
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.75s ease, transform 0.75s ease;
-      position: relative;
-      z-index: 1;
     }
 
     .show {
@@ -88,19 +104,20 @@
     }
 
     .meta {
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: clamp(11px, 2.5vw, 13px);
-      color: var(--muted);
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      color: var(--c2);
     }
 
     .header {
       margin: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 600;
-      font-size: clamp(40px, 10.5vw, 90px);
-      line-height: 0.92;
+      font-size: clamp(34px, 7vw, 60px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--c1);
+      font-weight: 800;
       max-width: 10ch;
     }
 
@@ -111,26 +128,24 @@
     }
 
     .button {
-      border: 2px solid var(--line);
-      background: #fff;
-      color: var(--ink);
+      border: 0;
+      border-radius: 14px;
       min-height: 50px;
-      padding: 10px 16px;
-      font-size: clamp(16px, 3.8vw, 20px);
-      font-weight: 700;
+      padding: 11px 16px;
       font-family: inherit;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: clamp(15px, 3.5vw, 18px);
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 6px 6px 0 #000;
-      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      color: var(--white);
+      background: linear-gradient(120deg, var(--c1), var(--c2));
+      box-shadow: 0 12px 22px rgba(66, 61, 97, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .button:hover {
-      transform: translate(-2px, -2px);
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 9px 9px 0 #000;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(66, 61, 97, 0.32);
+      filter: saturate(1.08);
     }
 
     .success-container,
@@ -138,8 +153,8 @@
     .refusal-form,
     .result-container {
       display: none;
-      position: relative;
-      z-index: 1;
+      gap: 12px;
+      animation: fadeIn 0.55s ease forwards;
     }
 
     .success-container.show,
@@ -147,8 +162,6 @@
     .refusal-form.show,
     .result-container.show {
       display: grid;
-      gap: 12px;
-      animation: fadeIn 0.6s ease forwards;
     }
 
     @keyframes fadeIn {
@@ -158,20 +171,21 @@
 
     .success-text {
       margin: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(34px, 8.8vw, 56px);
-      font-style: italic;
-      color: var(--accent);
+      font-size: clamp(30px, 7vw, 44px);
+      color: var(--c1);
+      font-weight: 800;
       text-align: center;
     }
 
     .success-gif,
     .loading-gif,
     .patience-gif {
-      width: min(440px, 100%);
+      width: min(460px, 100%);
       justify-self: center;
-      border: 2px solid var(--line);
-      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.12);
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(66, 61, 97, 0.18);
     }
 
     .refusal-form {
@@ -179,54 +193,54 @@
     }
 
     .refusal-label {
-      font-size: clamp(17px, 3.9vw, 21px);
+      font-size: clamp(17px, 3.8vw, 21px);
       font-weight: 700;
-      color: var(--ink);
-      border-left: 3px solid var(--line);
-      padding-left: 10px;
+      color: var(--c1);
     }
 
     .refusal-form textarea {
       width: 100%;
       min-height: 130px;
       resize: none;
-      border: 2px solid var(--line);
-      border-radius: 0;
-      background: #fff;
+      border: 1px solid rgba(66, 61, 97, 0.3);
+      border-radius: 14px;
       padding: 12px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(16px, 3.7vw, 18px);
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(16px, 3.6vw, 18px);
+      color: var(--ink);
       outline: none;
-      transition: background-color 0.2s ease, transform 0.2s ease;
+      background: var(--white);
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
     .refusal-form textarea:focus {
-      background: #fff9fc;
-      transform: translateY(-2px);
+      border-color: var(--c2);
+      transform: translateY(-1px);
     }
 
     .admin-message {
       margin: 0;
-      font-size: clamp(17px, 3.7vw, 20px);
+      font-size: clamp(17px, 3.6vw, 20px);
       line-height: 1.6;
       color: var(--ink);
-      border: 2px solid var(--line);
-      background: #fff;
       padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(182, 189, 208, 0.25), rgba(255, 255, 255, 0.95));
     }
 
     .admin-message .highlight {
-      color: var(--accent);
+      color: var(--c1);
       display: block;
       font-weight: 700;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .confetti {
       position: absolute;
       width: 8px;
       height: 8px;
-      border-radius: 0;
+      border-radius: 2px;
       opacity: 0.9;
       top: -10px;
       pointer-events: none;
@@ -240,6 +254,11 @@
     }
 
     @media (max-width: 700px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
       .buttons-container {
         grid-template-columns: 1fr;
       }
@@ -249,129 +268,135 @@
 <body>
   <div id="confetti-bg"></div>
 
-  <main class="page">
-    <div class="meta" id="meta">Dernière page • Étape 4/4</div>
+  <main class="shell">
+    <header class="topbar">
+      <span class="brand">To You · Private Edition</span>
+      <span class="tag">Étape 4 / 4</span>
+    </header>
 
-    <h1 class="header" id="header">Rendez-vous à 19h chez moi ce soir ?</h1>
+    <section class="content">
+      <div class="meta" id="meta">Dernière question</div>
 
-    <div class="buttons-container" id="buttons-container">
-      <button class="button" id="yes-button">Oui</button>
-      <button class="button" id="no-button">Non</button>
-    </div>
+      <h1 class="header" id="header">Rendez-vous à 19h chez moi ce soir ?</h1>
 
-    <div class="loading-container" id="loading-container">
-      <img src="non.gif" alt="Chargement" class="loading-gif">
-    </div>
-
-    <div class="refusal-form" id="refusal-form">
-      <div class="refusal-label">
-        Merci de justifier la raison de ce refus :
+      <div class="buttons-container" id="buttons-container">
+        <button class="button" id="yes-button">Oui</button>
+        <button class="button" id="no-button">Non</button>
       </div>
-      <textarea id="refusal-message" placeholder="Écris ta réponse ici..."></textarea>
-      <button class="button" id="submit-refusal">Envoyer</button>
-    </div>
 
-    <div class="result-container" id="result-container">
-      <div class="admin-message">
-        <span class="highlight">La réponse a bien été enregistrée.</span>
-        Elle sera traitée dans un délai estimé de quelques minutes.
-        Merci de ta patience.
+      <div class="loading-container" id="loading-container">
+        <img src="non.gif" alt="Chargement" class="loading-gif">
       </div>
-      <img src="patience.gif" alt="Patience" class="patience-gif">
-    </div>
 
-    <div class="success-container" id="success-container">
-      <div class="success-text">J'ai hâte de te retrouver ! &hearts;</div>
-      <img src="oui.gif" alt="Joie" class="success-gif">
-    </div>
+      <div class="refusal-form" id="refusal-form">
+        <div class="refusal-label">
+          Merci de justifier la raison de ce refus :
+        </div>
+        <textarea id="refusal-message" placeholder="Écris ta réponse ici..."></textarea>
+        <button class="button" id="submit-refusal">Envoyer</button>
+      </div>
+
+      <div class="result-container" id="result-container">
+        <div class="admin-message">
+          <span class="highlight">La réponse a bien été enregistrée.</span>
+          Elle sera traitée dans un délai estimé de quelques minutes.
+          Merci de ta patience.
+        </div>
+        <img src="patience.gif" alt="Patience" class="patience-gif">
+      </div>
+
+      <div class="success-container" id="success-container">
+        <div class="success-text">J'ai hâte de te retrouver ! &hearts;</div>
+        <img src="oui.gif" alt="Joie" class="success-gif">
+      </div>
+    </section>
   </main>
 
-<script>
-  const meta = document.getElementById('meta');
-  const header = document.getElementById('header');
-  const buttonsContainer = document.getElementById('buttons-container');
-  const yesButton = document.getElementById('yes-button');
-  const noButton = document.getElementById('no-button');
-  const successContainer = document.getElementById('success-container');
-  const loadingContainer = document.getElementById('loading-container');
-  const refusalForm = document.getElementById('refusal-form');
-  const submitRefusal = document.getElementById('submit-refusal');
-  const refusalMessage = document.getElementById('refusal-message');
-  const resultContainer = document.getElementById('result-container');
-  const bg = document.getElementById('confetti-bg');
-  const endpoint = 'https://formsubmit.co/ajax/coralieludwig@outlook.fr';
+  <script>
+    const meta = document.getElementById('meta');
+    const header = document.getElementById('header');
+    const buttonsContainer = document.getElementById('buttons-container');
+    const yesButton = document.getElementById('yes-button');
+    const noButton = document.getElementById('no-button');
+    const successContainer = document.getElementById('success-container');
+    const loadingContainer = document.getElementById('loading-container');
+    const refusalForm = document.getElementById('refusal-form');
+    const submitRefusal = document.getElementById('submit-refusal');
+    const refusalMessage = document.getElementById('refusal-message');
+    const resultContainer = document.getElementById('result-container');
+    const bg = document.getElementById('confetti-bg');
+    const endpoint = 'https://formsubmit.co/ajax/coralieludwig@outlook.fr';
 
-  async function sendResponse(message) {
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: 'Reponse site to-you',
-          _captcha: 'false',
-          message
-        })
-      });
+    async function sendResponse(message) {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: 'Reponse site to-you',
+            _captcha: 'false',
+            message
+          })
+        });
 
-      return response.ok;
-    } catch (error) {
-      console.log(error);
-      return false;
+        return response.ok;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
     }
-  }
 
-  window.addEventListener('load', () => {
-    setTimeout(() => meta.classList.add('show'), 70);
-    setTimeout(() => header.classList.add('show'), 220);
-    setTimeout(() => buttonsContainer.classList.add('show'), 420);
-  });
+    window.addEventListener('load', () => {
+      setTimeout(() => meta.classList.add('show'), 80);
+      setTimeout(() => header.classList.add('show'), 240);
+      setTimeout(() => buttonsContainer.classList.add('show'), 430);
+    });
 
-  function launchConfetti() {
-    const confettiCount = 50;
-    for (let i = 0; i < confettiCount; i++) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      confetti.style.left = Math.random() * window.innerWidth + 'px';
-      confetti.style.width = confetti.style.height = Math.random() * 7 + 6 + 'px';
-      confetti.style.backgroundColor = `hsl(${Math.random() * 30 + 330}, 85%, 58%)`;
-      confetti.style.animationDuration = Math.random() * 1 + 2.5 + 's';
-      bg.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 5000);
+    function launchConfetti() {
+      const confettiCount = 50;
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.width = confetti.style.height = Math.random() * 7 + 6 + 'px';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 40 + 235}, 70%, 70%)`;
+        confetti.style.animationDuration = Math.random() * 1 + 2.5 + 's';
+        bg.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
     }
-  }
 
-  yesButton.addEventListener('click', async () => {
-    await sendResponse('Il a dit OUI ❤️');
+    yesButton.addEventListener('click', async () => {
+      await sendResponse('Il a dit OUI ❤️');
 
-    launchConfetti();
-    buttonsContainer.style.display = 'none';
-    successContainer.classList.add('show');
-  });
+      launchConfetti();
+      buttonsContainer.style.display = 'none';
+      successContainer.classList.add('show');
+    });
 
-  noButton.addEventListener('click', () => {
-    buttonsContainer.style.display = 'none';
-    loadingContainer.classList.add('show');
+    noButton.addEventListener('click', () => {
+      buttonsContainer.style.display = 'none';
+      loadingContainer.classList.add('show');
 
-    setTimeout(() => {
-      loadingContainer.style.display = 'none';
-      refusalForm.classList.add('show');
-    }, 1444);
-  });
+      setTimeout(() => {
+        loadingContainer.style.display = 'none';
+        refusalForm.classList.add('show');
+      }, 1444);
+    });
 
-  submitRefusal.addEventListener('click', async () => {
-    if (!refusalMessage.value.trim()) return;
+    submitRefusal.addEventListener('click', async () => {
+      if (!refusalMessage.value.trim()) return;
 
-    submitRefusal.disabled = true;
-    await sendResponse('Refus 😢 Raison : ' + refusalMessage.value);
-    submitRefusal.disabled = false;
+      submitRefusal.disabled = true;
+      await sendResponse('Refus 😢 Raison : ' + refusalMessage.value);
+      submitRefusal.disabled = false;
 
-    refusalForm.style.display = 'none';
-    resultContainer.classList.add('show');
-  });
-</script>
-
+      refusalForm.style.display = 'none';
+      resultContainer.classList.add('show');
+    });
+  </script>
 </body>
 </html>
