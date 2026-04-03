@@ -79,7 +79,7 @@
       flex-direction: column;
       align-items: center;
       padding: clamp(16px, 4vw, 36px) clamp(18px, 4vw, 32px);
-      gap: clamp(4px, 1.4vw, 10px);
+      gap: clamp(0px, 0.7vw, 4px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
@@ -89,7 +89,7 @@
       pointer-events: none;
     }
 
-    .gift-intro { display: grid; gap: 3px; max-width: 40ch; align-self: flex-start; text-align: left; }
+    .gift-intro { display: grid; gap: 2px; max-width: 40ch; align-self: flex-start; text-align: left; }
 
     .gift-title {
       margin: 0;
@@ -139,7 +139,7 @@
       background: none;
       border: 0;
       padding: 0;
-      margin-top: -24px;
+      margin-top: -34px;
       cursor: pointer;
       outline: none;
       -webkit-tap-highlight-color: transparent;
@@ -394,8 +394,8 @@
               <path d="M 98 115 C 101 108, 118 95, 122 101 C 126 107, 116 114, 103 116 Z" fill="#C4D4E7"/>
               <path d="M 106 111 C 112 102, 120 97, 122 101" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
               <!-- center knot -->
-              <ellipse cx="97" cy="116" rx="7" ry="5.5" fill="#C4D4E7"/>
-              <ellipse cx="97" cy="116" rx="5" ry="3.8" fill="#96B3D6"/>
+              <ellipse cx="97" cy="116" rx="7" ry="5.5" fill="url(#gRibbon)"/>
+              <ellipse cx="97" cy="116" rx="5" ry="3.8" fill="url(#gRibbon)" opacity="0.92"/>
               <ellipse cx="95.5" cy="114.5" rx="2.2" ry="1.5" fill="rgba(255,255,255,0.45)" transform="rotate(-15,95.5,114.5)"/>
             </g>
           </svg>
