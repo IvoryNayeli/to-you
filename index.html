@@ -77,9 +77,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(32px, 7vw, 56px) clamp(18px, 4vw, 32px);
-      gap: clamp(28px, 5vw, 44px);
+      padding: clamp(30px, 7vw, 56px) clamp(18px, 4vw, 32px);
+      gap: clamp(24px, 5vw, 40px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      text-align: center;
     }
 
     .gift-scene.opening {
@@ -89,9 +90,9 @@
     }
 
     .gift-intro {
-      text-align: center;
       display: grid;
       gap: 10px;
+      max-width: 42ch;
     }
 
     .gift-title {
@@ -110,62 +111,121 @@
       line-height: 1.5;
     }
 
+    .gift-hint {
+      margin: 2px 0 0;
+      font-size: clamp(12px, 2.7vw, 14px);
+      font-weight: 700;
+      color: var(--c2);
+      letter-spacing: 0.02em;
+      animation: hintPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.74; }
+      50% { opacity: 1; }
+    }
+
     /* ── GIFT BOX ── */
     .gift-box {
-      width: min(210px, 56vw);
+      width: min(250px, 70vw);
       position: relative;
-      filter: drop-shadow(0 14px 32px rgba(51, 35, 48, 0.24));
+      filter: drop-shadow(0 16px 34px rgba(51, 35, 48, 0.26));
     }
 
     .gift-lid {
       position: relative;
       width: calc(100% + 22px);
       margin-left: -11px;
-      height: 60px;
-      background: var(--c4);
-      border-radius: 10px 10px 0 0;
+      height: clamp(56px, 10vw, 72px);
+      background: linear-gradient(140deg, var(--c4), #b994a1);
+      border: 1px solid rgba(51, 35, 48, 0.2);
+      border-bottom: 0;
+      border-radius: 14px 14px 6px 6px;
       transform: perspective(700px);
       transform-origin: 50% 0%;
       transition: transform 0.72s cubic-bezier(0.36, 1.3, 0.58, 1);
-      z-index: 2;
+      z-index: 3;
     }
 
     .gift-lid.open {
       transform: perspective(700px) rotateX(-116deg);
     }
 
-    /* Horizontal ribbon on lid */
-    .gift-lid::before {
-      content: '';
+    .gift-ribbon-x,
+    .gift-ribbon-y {
       position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 14px;
-      transform: translateY(-50%);
-      background: rgba(51, 35, 48, 0.68);
-      border-radius: 2px;
+      background: rgba(51, 35, 48, 0.78);
+      pointer-events: none;
     }
 
-    /* BOW */
+    .gift-ribbon-x {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 14px;
+      transform: translateY(-50%);
+    }
+
+    .gift-ribbon-y {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 14px;
+      transform: translateX(-50%);
+    }
+
     .bow-btn {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 72px;
+      height: 54px;
       background: none;
       border: 0;
-      padding: 0;
       cursor: pointer;
-      z-index: 3;
+      z-index: 4;
       outline: none;
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.15s ease;
-      line-height: 0;
+    }
+
+    .bow-btn::before,
+    .bow-btn::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      width: 30px;
+      height: 24px;
+      border: 6px solid var(--c2);
+      border-radius: 26px 26px 22px 22px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .bow-btn::before {
+      left: 5px;
+      transform: rotate(-14deg);
+    }
+
+    .bow-btn::after {
+      right: 5px;
+      transform: rotate(14deg);
+    }
+
+    .bow-knot {
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--c2);
+      box-shadow: 0 0 0 2px rgba(51, 35, 48, 0.14) inset;
     }
 
     .bow-btn:hover {
-      transform: translate(-50%, -50%) scale(1.12);
+      transform: translate(-50%, -50%) scale(1.1);
     }
 
     .bow-btn.bounce {
@@ -179,27 +239,38 @@
       100% { transform: translate(-50%, -50%) scale(1); }
     }
 
-    /* BOX BODY */
     .gift-body {
       width: 100%;
-      height: 134px;
-      background: var(--c3);
-      border: 1.5px solid rgba(51, 35, 48, 0.12);
+      height: clamp(138px, 24vw, 168px);
+      background: linear-gradient(150deg, var(--c3), #efe7df);
+      border: 1.5px solid rgba(51, 35, 48, 0.16);
       border-top: none;
-      border-radius: 0 0 10px 10px;
+      border-radius: 0 0 14px 14px;
       position: relative;
       overflow: hidden;
     }
 
-    .gift-body::before {
+    .gift-body::before,
+    .gift-body::after {
       content: '';
       position: absolute;
-      left: 50%;
+      background: rgba(51, 35, 48, 0.2);
+    }
+
+    .gift-body::before {
       top: 0;
       bottom: 0;
-      width: 14px;
+      left: 50%;
+      width: 16px;
       transform: translateX(-50%);
-      background: rgba(51, 35, 48, 0.1);
+    }
+
+    .gift-body::after {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 16px;
+      transform: translateY(-50%);
     }
 
     .hero-content {
@@ -322,19 +393,14 @@
         <div class="gift-intro">
           <h1 class="gift-title">Nouveau design, même intention</h1>
           <p class="gift-text">Le site a fait peau neuve.</p>
+          <p class="gift-hint">Clique sur le noeud pour ouvrir le cadeau</p>
         </div>
         <div class="gift-box" id="gift-box">
           <div class="gift-lid" id="gift-lid">
-            <button class="bow-btn" id="bow-btn" aria-label="Ouvrir le cadeau">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 52" width="68" height="52" aria-hidden="true">
-                <ellipse cx="19" cy="18" rx="15" ry="9" fill="#76809C" transform="rotate(-24 19 18)" opacity="0.95"/>
-                <ellipse cx="49" cy="18" rx="15" ry="9" fill="#76809C" transform="rotate(24 49 18)" opacity="0.95"/>
-                <line x1="28" y1="30" x2="20" y2="50" stroke="#76809C" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
-                <line x1="40" y1="30" x2="48" y2="50" stroke="#76809C" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
-                <circle cx="34" cy="29" r="11" fill="#76809C"/>
-                <circle cx="34" cy="29" r="7" fill="#A88592"/>
-                <circle cx="31" cy="26" r="2.5" fill="rgba(255,255,255,0.38)"/>
-              </svg>
+            <span class="gift-ribbon-x" aria-hidden="true"></span>
+            <span class="gift-ribbon-y" aria-hidden="true"></span>
+            <button class="bow-btn" id="bow-btn" aria-label="Ouvrir le cadeau" title="Ouvrir le cadeau">
+              <span class="bow-knot" aria-hidden="true"></span>
             </button>
           </div>
           <div class="gift-body"></div>
