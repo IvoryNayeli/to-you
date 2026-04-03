@@ -83,33 +83,35 @@
           rgba(255, 255, 255, 0.82) 10px,
           rgba(255, 255, 255, 0.82) 20px
         );
-      padding: clamp(18px, 4vw, 28px);
+      padding: clamp(46px, 9vw, 64px) clamp(18px, 4vw, 28px) clamp(24px, 4vw, 36px);
       display: grid;
-      gap: 14px;
+      gap: 16px;
       position: relative;
       overflow: hidden;
+      min-height: min(260px, 44vh);
       transition: opacity 0.45s ease, transform 0.45s ease;
     }
 
-    .gift-wrap::before,
+    /* Horizontal ribbon — only in the top strip */
+    .gift-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      background: linear-gradient(to bottom, #332330, rgba(51, 35, 48, 0.7));
+    }
+
+    /* Vertical ribbon segment — same height as the horizontal strip */
     .gift-wrap::after {
       content: '';
       position: absolute;
-      background: linear-gradient(180deg, rgba(51, 35, 48, 0.92), rgba(51, 35, 48, 0.8));
-    }
-
-    .gift-wrap::before {
-      width: 14px;
-      height: 100%;
-      left: calc(50% - 7px);
       top: 0;
-    }
-
-    .gift-wrap::after {
-      width: 100%;
-      height: 14px;
-      left: 0;
-      top: calc(50% - 7px);
+      left: calc(50% - 9px);
+      width: 18px;
+      height: 26px;
+      background: linear-gradient(to bottom, rgba(118, 128, 156, 0.95), rgba(118, 128, 156, 0.6));
     }
 
     .gift-wrap.opening {
@@ -148,18 +150,12 @@
     }
 
     .hero-content {
-      display: grid;
+      display: none;
       gap: clamp(20px, 3vw, 28px);
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-      pointer-events: none;
     }
 
     .hero-content.ready {
-      opacity: 1;
-      transform: none;
-      pointer-events: auto;
+      display: grid;
     }
 
     .hero-title,
@@ -252,13 +248,18 @@
       .button {
         width: 100%;
       }
+
+      .shell {
+        max-height: calc(100dvh - 36px);
+        overflow-y: auto;
+      }
     }
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
-      <span class="brand">To You · Private Edition</span>
+      <span class="brand">To You · New edition</span>
     </header>
 
     <section class="hero">
