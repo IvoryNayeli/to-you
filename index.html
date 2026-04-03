@@ -422,7 +422,6 @@
     window.addEventListener('load', () => {
       const giftWrap    = document.getElementById('gift-wrap');
       const svgLidGroup = document.getElementById('svg-lid-group');
-      const innerWalls  = document.getElementById('inner-walls');
       const giftBoxBtn  = document.getElementById('gift-box-btn');
       const heroContent = document.getElementById('hero-content');
       const header      = document.getElementById('header');
@@ -433,14 +432,20 @@
       let wiggleInterval;
 
       // periodic wiggle to invite the click
+      function triggerWiggle() {
+        if (opened) return;
+        giftBoxBtn.classList.add('wiggling');
+        setTimeout(() => giftBoxBtn.classList.remove('wiggling'), 600);
+      }
+
       function startWiggle() {
+        triggerWiggle();
         wiggleInterval = setInterval(() => {
           if (opened) { clearInterval(wiggleInterval); return; }
-          giftBoxBtn.classList.add('wiggling');
-          setTimeout(() => giftBoxBtn.classList.remove('wiggling'), 600);
-        }, 1800);
+          triggerWiggle();
+        }, 1400);
       }
-      setTimeout(startWiggle, 800);
+      startWiggle();
 
       giftBoxBtn.addEventListener('click', () => {
         if (opened) return;
@@ -454,7 +459,7 @@
         setTimeout(() => {
           const r = giftBoxBtn.getBoundingClientRect();
           spawnConfetti(r.left + r.width / 2, r.top + r.height * 0.38);
-        }, 340);
+        }, 120);
 
         // scene fades out
         setTimeout(() => giftWrap.classList.add('opening'), 860);
