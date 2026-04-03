@@ -72,36 +72,32 @@
       gap: clamp(20px, 3vw, 28px);
     }
 
-    /* ── GIFT SCENE ── */
+        /* ── GIFT SCENE ── */
     .gift-scene {
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: clamp(30px, 7vw, 56px) clamp(18px, 4vw, 32px);
-      gap: clamp(24px, 5vw, 40px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      gap: clamp(20px, 4vw, 36px);
       text-align: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .gift-scene.opening {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.96);
       pointer-events: none;
     }
 
-    .gift-intro {
-      display: grid;
-      gap: 10px;
-      max-width: 42ch;
-    }
+    .gift-intro { display: grid; gap: 8px; max-width: 40ch; }
 
     .gift-title {
       margin: 0;
-      font-size: clamp(22px, 4.5vw, 34px);
+      font-size: clamp(21px, 4.5vw, 32px);
       font-weight: 800;
       color: var(--c1);
       letter-spacing: -0.02em;
-      line-height: 1.08;
+      line-height: 1.1;
     }
 
     .gift-text {
@@ -113,164 +109,45 @@
 
     .gift-hint {
       margin: 2px 0 0;
-      font-size: clamp(12px, 2.7vw, 14px);
+      font-size: clamp(12px, 2.8vw, 14px);
       font-weight: 700;
       color: var(--c2);
-      letter-spacing: 0.02em;
-      animation: hintPulse 1.5s ease-in-out infinite;
+      animation: hintPulse 1.6s ease-in-out infinite;
     }
 
     @keyframes hintPulse {
-      0%, 100% { opacity: 0.74; }
-      50% { opacity: 1; }
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
     }
 
-    /* ── GIFT BOX ── */
-    .gift-box {
-      width: min(250px, 70vw);
-      position: relative;
-      filter: drop-shadow(0 16px 34px rgba(51, 35, 48, 0.26));
-    }
-
-    .gift-lid {
-      position: relative;
-      width: calc(100% + 22px);
-      margin-left: -11px;
-      height: clamp(56px, 10vw, 72px);
-      background: linear-gradient(140deg, var(--c4), #b994a1);
-      border: 1px solid rgba(51, 35, 48, 0.2);
-      border-bottom: 0;
-      border-radius: 14px 14px 6px 6px;
-      transform: perspective(700px);
-      transform-origin: 50% 0%;
-      transition: transform 0.72s cubic-bezier(0.36, 1.3, 0.58, 1);
-      z-index: 3;
-    }
-
-    .gift-lid.open {
-      transform: perspective(700px) rotateX(-116deg);
-    }
-
-    .gift-ribbon-x,
-    .gift-ribbon-y {
-      position: absolute;
-      background: rgba(51, 35, 48, 0.78);
-      pointer-events: none;
-    }
-
-    .gift-ribbon-x {
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 14px;
-      transform: translateY(-50%);
-    }
-
-    .gift-ribbon-y {
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 14px;
-      transform: translateX(-50%);
-    }
-
-    .bow-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 72px;
-      height: 54px;
+    .gift-box-btn {
+      display: block;
+      width: min(230px, 66vw);
       background: none;
       border: 0;
+      padding: 0;
       cursor: pointer;
-      z-index: 4;
       outline: none;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.15s ease;
+      filter: drop-shadow(0 18px 36px rgba(51,35,48,0.28));
+      transition: transform 0.2s ease, filter 0.2s ease;
     }
 
-    .bow-btn::before,
-    .bow-btn::after {
-      content: '';
-      position: absolute;
-      top: 8px;
-      width: 30px;
-      height: 24px;
-      border: 6px solid var(--c2);
-      border-radius: 26px 26px 22px 22px;
-      background: rgba(255, 255, 255, 0.18);
+    .gift-box-btn:hover {
+      transform: translateY(-4px);
+      filter: drop-shadow(0 24px 44px rgba(51,35,48,0.34));
     }
 
-    .bow-btn::before {
-      left: 5px;
-      transform: rotate(-14deg);
+    .gift-box-btn svg { display: block; width: 100%; overflow: visible; }
+
+    #svg-lid-group {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+      transition: transform 0.75s cubic-bezier(0.36, 1.3, 0.58, 1);
     }
 
-    .bow-btn::after {
-      right: 5px;
-      transform: rotate(14deg);
-    }
-
-    .bow-knot {
-      position: absolute;
-      top: 22px;
-      left: 50%;
-      width: 18px;
-      height: 18px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: var(--c2);
-      box-shadow: 0 0 0 2px rgba(51, 35, 48, 0.14) inset;
-    }
-
-    .bow-btn:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    .bow-btn.bounce {
-      animation: bowBounce 0.34s ease;
-    }
-
-    @keyframes bowBounce {
-      0%   { transform: translate(-50%, -50%) scale(1); }
-      36%  { transform: translate(-50%, -50%) scale(1.28); }
-      66%  { transform: translate(-50%, -50%) scale(0.88); }
-      100% { transform: translate(-50%, -50%) scale(1); }
-    }
-
-    .gift-body {
-      width: 100%;
-      height: clamp(138px, 24vw, 168px);
-      background: linear-gradient(150deg, var(--c3), #efe7df);
-      border: 1.5px solid rgba(51, 35, 48, 0.16);
-      border-top: none;
-      border-radius: 0 0 14px 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .gift-body::before,
-    .gift-body::after {
-      content: '';
-      position: absolute;
-      background: rgba(51, 35, 48, 0.2);
-    }
-
-    .gift-body::before {
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 16px;
-      transform: translateX(-50%);
-    }
-
-    .gift-body::after {
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 16px;
-      transform: translateY(-50%);
+    #svg-lid-group.open {
+      transform: perspective(560px) rotateX(-118deg);
     }
 
     .hero-content {
@@ -393,21 +270,61 @@
         <div class="gift-intro">
           <h1 class="gift-title">Nouveau design, même intention</h1>
           <p class="gift-text">Le site a fait peau neuve.</p>
-          <p class="gift-hint">Clique sur le noeud pour ouvrir le cadeau</p>
+          <p class="gift-hint">🎀 Clique sur le cadeau pour l'ouvrir</p>
         </div>
-        <div class="gift-box" id="gift-box">
-          <div class="gift-lid" id="gift-lid">
-            <span class="gift-ribbon-x" aria-hidden="true"></span>
-            <span class="gift-ribbon-y" aria-hidden="true"></span>
-            <button class="bow-btn" id="bow-btn" aria-label="Ouvrir le cadeau" title="Ouvrir le cadeau">
-              <span class="bow-knot" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="gift-body"></div>
-        </div>
+
+        <button class="gift-box-btn" id="gift-box-btn" aria-label="Ouvrir le cadeau">
+          <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+            <!-- shadow -->
+            <ellipse cx="100" cy="225" rx="60" ry="7" fill="rgba(51,35,48,0.15)"/>
+
+            <!-- ── BOX BODY (never moves) ── -->
+            <rect x="22" y="150" width="156" height="72" rx="10" fill="#A88592"/>
+            <!-- shading on right/bottom edge for depth -->
+            <rect x="148" y="150" width="30" height="72" rx="0 10 10 0" fill="rgba(51,35,48,0.10)"/>
+            <rect x="22" y="200" width="156" height="22" rx="0 0 10 10" fill="rgba(51,35,48,0.12)"/>
+            <!-- vertical ribbon on body -->
+            <rect x="87" y="150" width="26" height="72" fill="rgba(51,35,48,0.46)"/>
+            <!-- horizontal ribbon on body -->
+            <rect x="22" y="178" width="156" height="16" fill="rgba(51,35,48,0.46)"/>
+            <!-- subtle border -->
+            <rect x="22" y="150" width="156" height="72" rx="10" fill="none" stroke="rgba(51,35,48,0.14)" stroke-width="1.2"/>
+
+            <!-- ── LID + BOW GROUP (rotates on click) ── -->
+            <g id="svg-lid-group">
+              <!-- lid rectangle -->
+              <rect x="10" y="104" width="180" height="50" rx="10" fill="#C2A4AF"/>
+              <!-- shading on lid edge -->
+              <rect x="150" y="104" width="40" height="50" rx="0 10 10 0" fill="rgba(51,35,48,0.10)"/>
+              <!-- vertical ribbon on lid -->
+              <rect x="87" y="104" width="26" height="50" fill="rgba(51,35,48,0.46)"/>
+              <!-- lid border -->
+              <rect x="10" y="104" width="180" height="50" rx="10" fill="none" stroke="rgba(51,35,48,0.14)" stroke-width="1.2"/>
+
+              <!-- bow tails (ribbon strips hanging from knot to lid face) -->
+              <path d="M 93 106 Q 78 120 74 142" stroke="#76809C" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <path d="M 107 106 Q 122 120 126 142" stroke="#76809C" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+              <!-- left bow loop -->
+              <path d="M 100 92 C 88 62, 42 38, 40 62 C 38 82, 76 94, 100 88 Z" fill="#76809C"/>
+              <!-- left loop inner highlight -->
+              <path d="M 100 90 C 90 65, 54 48, 52 65 C 50 79, 78 90, 100 87 Z" fill="rgba(255,255,255,0.13)"/>
+
+              <!-- right bow loop -->
+              <path d="M 100 92 C 112 62, 158 38, 160 62 C 162 82, 124 94, 100 88 Z" fill="#76809C"/>
+              <!-- right loop inner highlight -->
+              <path d="M 100 90 C 110 65, 146 48, 148 65 C 150 79, 122 90, 100 87 Z" fill="rgba(255,255,255,0.13)"/>
+
+              <!-- center knot -->
+              <circle cx="100" cy="91" r="18" fill="#76809C"/>
+              <circle cx="100" cy="91" r="13" fill="#A88592"/>
+              <circle cx="94" cy="84" r="5" fill="rgba(255,255,255,0.40)"/>
+            </g>
+          </svg>
+        </button>
       </div>
 
-      <div class="hero-content" id="hero-content">
+<div class="hero-content" id="hero-content">
         <h1 class="hero-title" id="header">
           Aujourd'hui, j'ai un message pour toi &hearts;
         </h1>
@@ -427,9 +344,8 @@
   <script>
     window.addEventListener('load', () => {
       const giftWrap    = document.getElementById('gift-wrap');
-      const giftLid     = document.getElementById('gift-lid');
-      const bowBtn      = document.getElementById('bow-btn');
-      const giftBox     = document.getElementById('gift-box');
+      const svgLidGroup = document.getElementById('svg-lid-group');
+      const giftBoxBtn  = document.getElementById('gift-box-btn');
       const heroContent = document.getElementById('hero-content');
       const header      = document.getElementById('header');
       const middle      = document.getElementById('middle');
@@ -437,42 +353,38 @@
       const confettiBg  = document.getElementById('confetti-bg');
       let opened = false;
 
-      bowBtn.addEventListener('click', () => {
+      giftBoxBtn.addEventListener('click', () => {
         if (opened) return;
         opened = true;
 
-        // 1. bow bounce
-        bowBtn.classList.add('bounce');
-        setTimeout(() => bowBtn.classList.remove('bounce'), 340);
+        // lid flips open
+        svgLidGroup.classList.add('open');
 
-        // 2. lid opens
-        setTimeout(() => giftLid.classList.add('open'), 130);
-
-        // 3. confetti burst from the top of the box
+        // confetti burst from top of box
         setTimeout(() => {
-          const r = giftBox.getBoundingClientRect();
-          spawnConfetti(r.left + r.width / 2, r.top + 20);
-        }, 420);
+          const r = giftBoxBtn.getBoundingClientRect();
+          spawnConfetti(r.left + r.width / 2, r.top + r.height * 0.38);
+        }, 340);
 
-        // 4. scene fades out
-        setTimeout(() => giftWrap.classList.add('opening'), 950);
+        // scene fades out
+        setTimeout(() => giftWrap.classList.add('opening'), 860);
 
-        // 5. hero content appears
+        // hero content appears
         setTimeout(() => {
           giftWrap.style.display = 'none';
           heroContent.classList.add('ready');
           setTimeout(() => header.classList.add('show'), 60);
           setTimeout(() => middle.classList.add('show'), 220);
           setTimeout(() => footer.classList.add('show'), 380);
-        }, 1420);
+        }, 1320);
       });
 
       function spawnConfetti(cx, cy) {
         const palette = ['#332330', '#A88592', '#76809C', '#9A9B9D', '#F9F7F3', '#ffffff'];
         for (let i = 0; i < 72; i++) {
           setTimeout(() => {
-            const el   = document.createElement('div');
-            const size = Math.random() * 9 + 5;
+            const el    = document.createElement('div');
+            const size  = Math.random() * 9 + 5;
             const round = Math.random() > 0.4;
             el.style.cssText = [
               'position:fixed',
@@ -487,12 +399,12 @@
             ].join(';');
             confettiBg.appendChild(el);
 
-            const angle  = Math.random() * Math.PI * 2;
-            const speed  = Math.random() * 300 + 90;
-            const vx     = Math.cos(angle) * speed;
-            const vy     = Math.sin(angle) * speed - 210;
-            const spin   = (Math.random() - 0.5) * 800;
-            const t0     = performance.now();
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 300 + 90;
+            const vx    = Math.cos(angle) * speed;
+            const vy    = Math.sin(angle) * speed - 210;
+            const spin  = (Math.random() - 0.5) * 800;
+            const t0    = performance.now();
 
             (function tick(now) {
               const t  = (now - t0) / 1000;
