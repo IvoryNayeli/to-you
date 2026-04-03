@@ -77,9 +77,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(30px, 7vw, 56px) clamp(18px, 4vw, 32px);
+      padding: clamp(24px, 6vw, 52px) clamp(18px, 4vw, 32px);
       gap: clamp(20px, 4vw, 36px);
-      text-align: center;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
@@ -89,7 +88,7 @@
       pointer-events: none;
     }
 
-    .gift-intro { display: grid; gap: 8px; max-width: 40ch; }
+    .gift-intro { display: grid; gap: 6px; max-width: 40ch; align-self: flex-start; text-align: left; }
 
     .gift-title {
       margin: 0;
@@ -110,9 +109,10 @@
     .gift-hint {
       margin: 2px 0 0;
       font-size: clamp(12px, 2.8vw, 14px);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--c2);
       animation: hintPulse 1.6s ease-in-out infinite;
+      text-align: center;
     }
 
     @keyframes hintPulse {
@@ -122,7 +122,7 @@
 
     .gift-box-btn {
       display: block;
-      width: min(230px, 66vw);
+      width: min(260px, 72vw);
       background: none;
       border: 0;
       padding: 0;
@@ -270,61 +270,107 @@
       <div class="gift-scene" id="gift-wrap">
         <div class="gift-intro">
           <h1 class="gift-title">Nouveau design, même intention</h1>
-          <p class="gift-text">Le site a fait peau neuve.</p>
+          <p class="gift-text">Le site fait peau neuve.</p>
         </div>
 
         <button class="gift-box-btn" id="gift-box-btn" aria-label="Ouvrir le cadeau">
-          <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
-            <!-- shadow -->
-            <ellipse cx="100" cy="225" rx="60" ry="7" fill="rgba(51,35,48,0.15)"/>
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Box face gradients for 3D illusion -->
+              <linearGradient id="gFront" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#C2A4AF"/>
+                <stop offset="100%" stop-color="#A88592"/>
+              </linearGradient>
+              <linearGradient id="gFrontLid" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#D0B5BF"/>
+                <stop offset="100%" stop-color="#B89AAB"/>
+              </linearGradient>
+              <linearGradient id="gSide" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#8E6E7B"/>
+                <stop offset="100%" stop-color="#7A5D6A"/>
+              </linearGradient>
+              <linearGradient id="gSideLid" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#9E7E8B"/>
+                <stop offset="100%" stop-color="#8A6D7A"/>
+              </linearGradient>
+              <linearGradient id="gTop" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#DBBFC9"/>
+                <stop offset="100%" stop-color="#EDD4DB"/>
+              </linearGradient>
+              <linearGradient id="gRibbon" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#8E9BB5"/>
+                <stop offset="100%" stop-color="#626F89"/>
+              </linearGradient>
+              <filter id="boxShadow" x="-10%" y="-5%" width="130%" height="130%">
+                <feDropShadow dx="3" dy="8" stdDeviation="6" flood-color="rgba(51,35,48,0.35)"/>
+              </filter>
+              <filter id="bowShadow" x="-20%" y="-20%" width="160%" height="160%">
+                <feDropShadow dx="1" dy="2" stdDeviation="2.5" flood-color="rgba(51,35,48,0.4)"/>
+              </filter>
+            </defs>
 
-            <!-- ── BOX BODY (never moves) ── -->
-            <rect x="22" y="150" width="156" height="72" rx="10" fill="#A88592"/>
-            <!-- shading on right/bottom edge for depth -->
-            <rect x="148" y="150" width="30" height="72" rx="0 10 10 0" fill="rgba(51,35,48,0.10)"/>
-            <rect x="22" y="200" width="156" height="22" rx="0 0 10 10" fill="rgba(51,35,48,0.12)"/>
-            <!-- vertical ribbon on body -->
-            <rect x="87" y="150" width="26" height="72" fill="rgba(51,35,48,0.46)"/>
-            <!-- horizontal ribbon on body -->
-            <rect x="22" y="178" width="156" height="16" fill="rgba(51,35,48,0.46)"/>
-            <!-- subtle border -->
-            <rect x="22" y="150" width="156" height="72" rx="10" fill="none" stroke="rgba(51,35,48,0.14)" stroke-width="1.2"/>
+            <!-- ── GROUND SHADOW ── -->
+            <ellipse cx="102" cy="232" rx="62" ry="7" fill="rgba(51,35,48,0.18)"/>
 
-            <!-- ── LID + BOW GROUP (lifts up on click) ── -->
+            <!-- ── BOX BODY (stays) ── -->
+            <g filter="url(#boxShadow)">
+              <!-- front face -->
+              <rect x="30" y="148" width="124" height="70" fill="url(#gFront)"/>
+              <!-- right side face (isometric) -->
+              <polygon points="154,148 178,134 178,204 154,218" fill="url(#gSide)"/>
+              <!-- front face border -->
+              <rect x="30" y="148" width="124" height="70" fill="none" stroke="rgba(51,35,48,0.08)" stroke-width="0.8"/>
+            </g>
+
+            <!-- ribbon on body: vertical -->
+            <rect x="85" y="148" width="18" height="70" fill="url(#gRibbon)" opacity="0.75"/>
+            <!-- ribbon on body: vertical right-side strip -->
+            <polygon points="154,148 160,145 160,215 154,218" fill="url(#gRibbon)" opacity="0.75"/>
+            <!-- ribbon on body: horizontal -->
+            <rect x="30" y="180" width="124" height="13" fill="url(#gRibbon)" opacity="0.75"/>
+            <!-- ribbon on body: horizontal right-side strip -->
+            <polygon points="154,180 178,166 178,179 154,193" fill="url(#gRibbon)" opacity="0.75"/>
+            <!-- edge highlight on front face -->
+            <line x1="30" y1="148" x2="30" y2="218" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+
+            <!-- ── LID GROUP (lifts up) ── -->
             <g id="svg-lid-group">
-              <!-- lid rectangle -->
-              <rect x="10" y="104" width="180" height="50" rx="10" fill="#C2A4AF"/>
-              <!-- shading on lid right edge -->
-              <rect x="150" y="104" width="40" height="50" fill="rgba(51,35,48,0.10)"/>
-              <!-- vertical ribbon on lid -->
-              <rect x="87" y="104" width="26" height="50" fill="rgba(51,35,48,0.46)"/>
-              <!-- lid border -->
-              <rect x="10" y="104" width="180" height="50" rx="10" fill="none" stroke="rgba(51,35,48,0.14)" stroke-width="1.2"/>
+              <!-- front lid face -->
+              <rect x="26" y="104" width="132" height="48" fill="url(#gFrontLid)"/>
+              <!-- right lid side -->
+              <polygon points="158,104 184,90 184,138 158,152" fill="url(#gSideLid)"/>
+              <!-- top lid face -->
+              <polygon points="26,104 50,90 184,90 158,104" fill="url(#gTop)"/>
+              <!-- lid borders -->
+              <rect x="26" y="104" width="132" height="48" fill="none" stroke="rgba(51,35,48,0.07)" stroke-width="0.8"/>
+              <!-- lid edge highlight -->
+              <line x1="26" y1="104" x2="26" y2="152" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+              <line x1="26" y1="104" x2="50" y2="90" stroke="rgba(255,255,255,0.28)" stroke-width="0.8"/>
 
-              <!-- ribbon tails (short stubs from knot to lid ribbon) -->
-              <path d="M 96 97 L 93 108" stroke="#76809C" stroke-width="12" stroke-linecap="round" fill="none"/>
-              <path d="M 104 97 L 107 108" stroke="#76809C" stroke-width="12" stroke-linecap="round" fill="none"/>
-              <path d="M 96 97 L 93 108" stroke="rgba(51,35,48,0.22)" stroke-width="4" stroke-linecap="round" fill="none"/>
-              <path d="M 104 97 L 107 108" stroke="rgba(51,35,48,0.22)" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <!-- ribbon on lid: vertical -->
+              <rect x="85" y="104" width="18" height="52" fill="url(#gRibbon)" opacity="0.7"/>
+              <!-- ribbon on lid: vertical right-side -->
+              <polygon points="158,104 164,101 164,153 158,152" fill="url(#gRibbon)" opacity="0.7"/>
+              <!-- ribbon on lid: top surface -->
+              <polygon points="86,104 96,97 114,97 104,104" fill="url(#gRibbon)" opacity="0.7"/>
 
-              <!-- left bow loop (outer shape) -->
-              <path d="M 100 94 C 96 84,72 60,50 50 C 36 44,26 54,32 68 C 38 82,66 92,92 96 C 96 97,100 96,100 92 Z" fill="#76809C"/>
-              <!-- left loop inner shadow (gives 3-D ribbon loop feel) -->
-              <path d="M 99 92 C 92 82,70 62,52 54 C 42 50,38 58,42 70 C 46 80,68 90,90 94 C 95 96,99 95,99 92 Z" fill="#5a6880"/>
-              <!-- left loop rim shine -->
-              <path d="M 90 88 C 76 74,60 62,48 58 C 40 56,36 62,40 70" stroke="rgba(255,255,255,0.28)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-              <!-- right bow loop (mirror) -->
-              <path d="M 100 94 C 104 84,128 60,150 50 C 164 44,174 54,168 68 C 162 82,134 92,108 96 C 104 97,100 96,100 92 Z" fill="#76809C"/>
-              <!-- right loop inner shadow -->
-              <path d="M 101 92 C 108 82,130 62,148 54 C 158 50,162 58,158 70 C 154 80,132 90,110 94 C 105 96,101 95,101 92 Z" fill="#5a6880"/>
-              <!-- right loop rim shine -->
-              <path d="M 110 88 C 124 74,140 62,152 58 C 160 56,164 62,160 70" stroke="rgba(255,255,255,0.28)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
+              <!-- ── BOW (small, proportionate, elegant) ── -->
+              <!-- left tail draping down -->
+              <path d="M 90 97 Q 80 108 75 118" stroke="#76809C" stroke-width="5.5" stroke-linecap="round" fill="none" filter="url(#bowShadow)"/>
+              <!-- right tail draping down -->
+              <path d="M 104 97 Q 114 108 119 118" stroke="#76809C" stroke-width="5.5" stroke-linecap="round" fill="none" filter="url(#bowShadow)"/>
+              <!-- left loop -->
+              <path d="M 97 96 C 94 88, 74 72, 68 80 C 63 87, 76 96, 91 97 Z" fill="#76809C" filter="url(#bowShadow)"/>
+              <path d="M 96 95 C 93 88, 76 75, 72 81 C 68 87, 78 94, 91 96 Z" fill="#5e6f88"/>
+              <path d="M 88 91 C 82 82, 74 77, 72 81" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- right loop -->
+              <path d="M 97 96 C 100 88, 120 72, 126 80 C 131 87, 118 96, 103 97 Z" fill="#76809C" filter="url(#bowShadow)"/>
+              <path d="M 98 95 C 101 88, 118 75, 122 81 C 126 87, 116 94, 103 96 Z" fill="#5e6f88"/>
+              <path d="M 106 91 C 112 82, 120 77, 122 81" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
               <!-- center knot -->
-              <ellipse cx="100" cy="91" rx="12" ry="9" fill="#46566c"/>
-              <ellipse cx="100" cy="91" rx="8" ry="6" fill="#76809C"/>
-              <ellipse cx="97" cy="88" rx="4" ry="2.5" fill="rgba(255,255,255,0.42)" transform="rotate(-20,97,88)"/>
+              <ellipse cx="97" cy="96" rx="7" ry="5.5" fill="#46566c"/>
+              <ellipse cx="97" cy="96" rx="5" ry="3.8" fill="#76809C"/>
+              <ellipse cx="95.5" cy="94.5" rx="2.2" ry="1.5" fill="rgba(255,255,255,0.45)" transform="rotate(-15,95.5,94.5)"/>
             </g>
           </svg>
         </button>

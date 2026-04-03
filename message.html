@@ -67,9 +67,9 @@
     }
 
     .content {
-      padding: clamp(20px, 5vw, 40px);
+      padding: clamp(14px, 4vw, 40px);
       display: grid;
-      gap: clamp(22px, 4vw, 34px);
+      gap: clamp(12px, 2.8vw, 28px);
     }
 
     h1,
@@ -96,8 +96,8 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(23px, 4.9vw, 38px);
-      line-height: 1.03;
+      font-size: clamp(18px, 4vw, 38px);
+      line-height: 1.08;
       letter-spacing: -0.02em;
       color: var(--c1);
       font-weight: 800;
@@ -106,10 +106,10 @@
 
     .intro {
       margin: 0;
-      font-size: clamp(15px, 3.2vw, 19px);
-      line-height: 1.5;
+      font-size: clamp(13px, 2.8vw, 17px);
+      line-height: 1.45;
       color: var(--ink);
-      padding: 12px;
+      padding: 10px 12px;
       border-radius: var(--radius-md);
       border: 1px solid var(--line);
       background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(249, 247, 243, 0.7));
@@ -117,7 +117,7 @@
 
     .reasons {
       display: grid;
-      gap: 14px;
+      gap: 8px;
     }
 
     .reason-block {
@@ -135,10 +135,10 @@
       color: var(--c1);
       text-align: left;
       font-family: inherit;
-      font-size: clamp(14px, 3vw, 17px);
+      font-size: clamp(12px, 2.8vw, 15px);
       font-weight: 700;
       letter-spacing: 0.03em;
-      padding: 14px 16px;
+      padding: 11px 14px;
       cursor: pointer;
       transition: filter 0.2s ease, transform 0.2s ease;
     }
@@ -308,8 +308,6 @@
     </header>
 
     <section class="content">
-      <div class="meta" id="meta">Accès validé</div>
-
       <h1 id="header">Je voulais te dire que je t'aime &hearts;</h1>
 
       <div class="intro" id="intro">
@@ -414,15 +412,13 @@
 
   <script>
     window.addEventListener('load', () => {
-      const meta = document.getElementById('meta');
       const header = document.getElementById('header');
       const intro = document.getElementById('intro');
       const reasons = document.getElementById('reasons');
 
-      setTimeout(() => meta.classList.add('show'), 80);
-      setTimeout(() => header.classList.add('show'), 220);
-      setTimeout(() => intro.classList.add('show'), 390);
-      setTimeout(() => reasons.classList.add('show'), 530);
+      setTimeout(() => header.classList.add('show'), 120);
+      setTimeout(() => intro.classList.add('show'), 280);
+      setTimeout(() => reasons.classList.add('show'), 430);
     });
 
     const buttons = document.querySelectorAll('.reason-button:not(#conclusion-button)');
